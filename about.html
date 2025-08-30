@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - The Gandabherunda</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Redaction 10';
+            src: url('assets/font/Redaction10-Regular.woff2') format('woff2'),
+                 url('assets/font/Redaction10-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #FAFAF9;
+            color: #0C0A09;
+        }
+        .font-redaction {
+            font-family: 'Redaction 10', sans-serif;
+        }
+        .animate-on-load {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="font-geist antialiased">
+
+    <div class="relative z-20">
+        <!-- Main Content -->
+        <main class="py-8 px-8 lg:px-64">
+             <section class="py-32 text-center">
+                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-auto mx-auto animate-on-load">
+                <h1 class="font-redaction text-[60px] font-medium tracking-tighter leading-none mt-8 animate-on-load">About Us</h1>
+                <div class="max-w-3xl mx-auto mt-8 space-y-6 text-[20px] text-gray-600 text-left animate-on-load">
+                    <p>
+                        The Gandabherunda is a collective dedicated to the art of software creation. We believe in the power of open-source and the fundamental right to digital freedom. Our mission is to build elegant, intuitive, and powerful applications and websites that respect user privacy and are accessible to everyone, completely free of charge.
+                    </p>
+                    <p>
+                        We operate on a simple principle: software should empower, not exploit. In an era where data has become a commodity, we stand firm in our commitment to never collect or sell user data. Our projects are a testament to this philosophy, crafted with care and a distinct aesthetic style that prioritizes clarity and user experience.
+                    </p>
+                    <p>
+                        Everything we create is open-source, allowing for transparency, collaboration, and community improvement. We invite you to explore our work, use our software, and join us in championing a digital world that is free, private, and beautifully designed.
+                    </p>
+                </div>
+                 <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Page load animation
+            const animatedItems = document.querySelectorAll('.animate-on-load');
+            animatedItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100); // 100ms delay for a nice cascade
+            });
+        });
+    </script>
+</body>
+</html>

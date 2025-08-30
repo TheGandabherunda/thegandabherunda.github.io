@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenJot - The Gandabherunda</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Redaction 10';
+            src: url('assets/font/Redaction10-Regular.woff2') format('woff2'),
+                 url('assets/font/Redaction10-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Geist', sans-serif;
+            color: #0C0A09;
+            background-image: linear-gradient(to bottom right, #F9F0FF, #FFC4BE);
+        }
+        .font-redaction {
+            font-family: 'Redaction 10', sans-serif;
+        }
+        .animate-on-load {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="font-geist antialiased">
+    <main class="min-h-screen flex flex-col items-center justify-center text-center p-8">
+        <div class="animate-on-load">
+            <img src="assets/openjot.svg" alt="OpenJot Logo" class="w-48 h-48 mx-auto">
+        </div>
+        <h1 class="font-redaction text-5xl md:text-7xl font-medium mt-8 animate-on-load">OpenJot</h1>
+        <p class="max-w-2xl mt-4 text-xl text-gray-800 animate-on-load">
+            A minimal and open-source journaling app designed for privacy and simplicity. All your thoughts are stored securely on your device, never in the cloud.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8 animate-on-load">
+             <a href="https://github.com/TheGandabherunda/OpenJot/releases" target="_blank" class="bg-black text-white px-6 py-3 rounded-full text-lg hover:bg-gray-800 transition-colors">Download APK</a>
+            <a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" class="bg-white/50 text-black px-6 py-3 rounded-full text-lg hover:bg-white/80 transition-colors">View on GitHub</a>
+        </div>
+        <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedItems = document.querySelectorAll('.animate-on-load');
+            animatedItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
