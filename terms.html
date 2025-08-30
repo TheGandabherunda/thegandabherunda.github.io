@@ -46,47 +46,48 @@
 </head>
 <body class="font-geist antialiased">
 
-    <div class="relative z-20">
-        <!-- Main Content -->
-        <main class="py-8 px-8 lg:px-64">
-             <section class="py-32">
-                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-auto mx-auto animate-on-load">
-                <h1 class="font-redaction text-[60px] font-medium tracking-tighter leading-none mt-8 text-center animate-on-load">Terms & Conditions</h1>
-                <div class="max-w-3xl mx-auto mt-8 space-y-6 text-[20px] text-gray-600 text-left animate-on-load">
-                    <p>
-                        Welcome to The Gandabherunda. By accessing our website and using our software, you agree to be bound by these terms and conditions. If you do not agree with any part of these terms, you must not use our services.
-                    </p>
-                    <h2 class="text-2xl font-medium text-black pt-4">Use of Software</h2>
-                    <p>
-                        All software provided by us is on an "as is" basis. It is provided for free and is intended for personal and commercial use. You may modify and redistribute our software in accordance with the open-source licenses under which they are released. We are not liable for any damage or loss resulting from the use of our software.
-                    </p>
-                    <h2 class="text-2xl font-medium text-black pt-4">Intellectual Property</h2>
-                    <p>
-                        The content on this website, including text, graphics, logos, and software, is the property of The Gandabherunda or its content suppliers and is protected by international copyright laws. Our open-source projects are governed by their respective licenses.
-                    </p>
-                     <h2 class="text-2xl font-medium text-black pt-4">Limitation of Liability</h2>
-                    <p>
-                       In no event shall The Gandabherunda be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service.
-                    </p>
-                </div>
-                 <div class="text-center">
-                    <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
-                 </div>
-            </section>
-        </main>
-    </div>
+<div class="relative z-20">
+    <!-- Main Content -->
+    <main class="p-8">
+        <section class="py-16 md:py-32">
+            <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-auto mx-auto animate-on-load">
+            <h1 class="font-redaction text-[60px] font-medium tracking-tighter leading-none mt-8 text-center animate-on-load">Terms & Conditions</h1>
+            <div class="max-w-3xl mx-auto mt-8 space-y-6 text-[20px] text-gray-600 text-center md:text-left animate-on-load">
+                <p>
+                    Welcome to The Gandabherunda. By accessing our website and using our software, you agree to be bound by these terms and conditions. If you do not agree with any part of these terms, you must not use our services.
+                </p>
+                <h2 class="text-2xl font-medium text-black pt-4">Use of Software</h2>
+                <p>
+                    All software provided by us is on an "as is" basis. It is provided for free and is intended for personal and commercial use. You may modify and redistribute our software in accordance with the open-source licenses under which they are released. We are not liable for any damage or loss resulting from the use of our software.
+                </p>
+                <h2 class="text-2xl font-medium text-black pt-4">Intellectual Property</h2>
+                <p>
+                    The content on this website, including text, graphics, logos, and software, is the property of The Gandabherunda or its content suppliers and is protected by international copyright laws. Our open-source projects are governed by their respective licenses.
+                </p>
+                <h2 class="text-2xl font-medium text-black pt-4">Limitation of Liability</h2>
+                <p>
+                    In no event shall The Gandabherunda be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service.
+                </p>
+            </div>
+            <div class="text-center">
+                <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
+            </div>
+        </section>
+    </main>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Page load animation
-            const animatedItems = document.querySelectorAll('.animate-on-load');
-            animatedItems.forEach((item, index) => {
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Page load animation
+        const animatedItems = document.querySelectorAll('.animate-on-load');
+        animatedItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
         });
-    </script>
+    });
+</script>
 </body>
 </html>
+
