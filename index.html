@@ -1,10 +1,295 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=https://thegandabherunda.github.io/NimFile/">
-    <title>Redirecting...</title>
-  </head>
-  <body>
-    <p>Taking you to NimFile...</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gandabherunda</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        @font-face {
+            font-family: 'Redaction 10';
+            src: url('assets/font/Redaction10-Regular.woff2') format('woff2'),
+                 url('assets/font/Redaction10-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #FAFAF9;
+            color: #0C0A09;
+        }
+        .font-geist {
+            font-family: 'Geist', sans-serif;
+        }
+        .font-redaction {
+            font-family: 'Redaction 10', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 20
+        }
+        .animate-on-load {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .grayscale {
+            filter: grayscale(100%);
+        }
+    </style>
+</head>
+<body class="font-geist antialiased">
+
+    <div class="relative z-20">
+        <!-- Header -->
+        <header class="py-8 px-8">
+            <nav class="flex justify-between items-start">
+                <a href="index.html" id="main-logo-link" class="flex items-center space-x-2 cursor-pointer animate-on-load" data-logo="assets/logo.svg" data-gradient="linear-gradient(to bottom right, #EAEAEA, #D2D2D2)">
+                     <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-[230px]">
+                </a>
+                <div class="hidden md:flex items-center space-x-8 text-[20px] tracking-wide pt-6 animate-on-load">
+                    <a href="#apps" class="hover:text-black">Apps</a>
+                    <a href="#websites" class="hover:text-black">Websites</a>
+                    <a href="about.html" class="hover:text-black">About</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="pb-24 md:pb-32 px-8 hero-section">
+                <div class="max-w-xl">
+                    <h1 class="font-redaction text-[60px] font-medium tracking-tighter leading-none animate-on-load">The<br>Gandabherunda</h1>
+                    <p class="mt-4 text-[20px] text-gray-500 animate-on-load">Crafting elegant, free software to empower digital freedom.</p>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="pb-24 projects-section">
+                <h2 class="text-[20px] px-8 animate-on-load">Our Projects</h2>
+
+                <!-- Apps -->
+                <div id="apps" class="mt-12 scroll-mt-24">
+                    <h3 class="text-[20px] text-gray-700 mb-8 px-8 animate-on-load">Apps</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
+                        <a href="xPomozen.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/pomozen.svg" data-gradient="linear-gradient(to bottom right, #FEE5FF, #FBBDFF)">
+                            <div class="h-96 md:h-[480px] w-full flex items-center justify-center" style="background-image: linear-gradient(to bottom right, #FEE5FF, #FBBDFF)">
+                                <img src="assets/pomozen.svg" alt="Pomozen Logo" class="w-[100px] h-auto">
+                            </div>
+                            <div class="mt-4 flex justify-end items-center gap-2">
+                                <p class="text-[20px]">Pomozen</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                        </a>
+                        <a href="xOpenJot.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/openjot.svg" data-gradient="linear-gradient(to bottom right, #F9F0FF, #FFC4BE)">
+                            <div class="h-96 md:h-[480px] w-full flex items-center justify-center" style="background-image: linear-gradient(to bottom right, #F9F0FF, #FFC4BE)">
+                                <img src="assets/openjot.svg" alt="OpenJot Logo" class="w-[100px] h-auto">
+                            </div>
+                             <div class="mt-4 flex justify-end items-center gap-2">
+                                <p class="text-[20px]">OpenJot</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Websites -->
+                <div id="websites" class="mt-20 scroll-mt-24">
+                    <h3 class="text-[20px] text-gray-700 mb-8 px-8 animate-on-load">Websites</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8">
+                        <a href="xNimFile.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimfile.svg" data-gradient="linear-gradient(to bottom right, #FFF4EE, #FFAB79)">
+                           <div class="h-96 md:h-[480px] w-full flex items-center justify-center" style="background-image: linear-gradient(to bottom right, #FFF4EE, #FFAB79)">
+                                <img src="assets/nimfile.svg" alt="NimFile Logo" class="w-[100px] h-auto">
+                            </div>
+                            <div class="mt-4 flex justify-end items-center gap-2">
+                                <p class="text-[20px]">NimFile</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                        </a>
+                        <a href="xNimSpace.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimspace.svg" data-gradient="linear-gradient(to bottom right, #FFE5E6, #FF9EA3)">
+                            <div class="h-96 md:h-[480px] w-full flex items-center justify-center" style="background-image: linear-gradient(to bottom right, #FFE5E6, #FF9EA3)">
+                                <img src="assets/nimspace.svg" alt="NimSpace Logo" class="w-[100px] h-auto">
+                            </div>
+                            <div class="mt-4 flex justify-end items-center gap-2">
+                                <p class="text-[20px]">NimSpace</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                        </a>
+                        <a href="xMorse.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/morse.svg" data-gradient="linear-gradient(to bottom right, #EEEEEE, #767676)">
+                            <div class="h-96 md:h-[480px] w-full flex items-center justify-center" style="background-image: linear-gradient(to bottom right, #EEEEEE, #767676)">
+                                <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-[100px] h-auto">
+                            </div>
+                            <div class="mt-4 flex justify-end items-center gap-2">
+                                <p class="text-[20px]">Morse Code Translator</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thank you section -->
+            <section class="py-24 md:py-32 px-8">
+                 <h2 class="font-redaction text-[60px] text-center font-medium tracking-tight animate-on-load">Thank you for visiting.</h2>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="pb-8 px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-500">
+                <div class="animate-on-load">
+                    <h4 class="font-medium text-black mb-4 text-[20px]">GitHub</h4>
+                    <ul class="text-[20px] space-y-2">
+                        <li><a href="https://github.com/TheGandabherunda" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>TheGandabherunda</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/abisri99" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Abilash</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/arunuserx" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Arun</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                    </ul>
+                </div>
+                <div class="animate-on-load"></div> <!-- Empty div for spacing -->
+                <div class="animate-on-load">
+                    <h4 class="font-medium text-black mb-4 text-[20px]">Projects</h4>
+                     <ul class="text-[20px] space-y-2">
+                        <li><a href="https://github.com/TheGandabherunda/Pomozen" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Pomozen</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>OpenJot</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/TheGandabherunda/NimFile" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>NimFile</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/TheGandabherunda/NimSpace" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>NimSpace</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                        <li><a href="https://github.com/TheGandabherunda/morse-code-translator" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Morse Code Translator</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 text-gray-500 flex justify-between items-center text-[20px] animate-on-load">
+                 <div class="inline-flex items-center gap-4">
+                    <a href="terms.html" class="hover:text-black">Terms & Conditions</a>
+                    <span>•</span>
+                    <a href="privacy.html" class="hover:text-black">Privacy policy</a>
+                 </div>
+                 <div class="text-right">
+                    <p id="time"></p>
+                    <p>Bengaluru, India</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Hover Overlays -->
+    <div id="background-overlay" class="fixed inset-0 z-10 pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></div>
+    <div id="logo-overlay" class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out">
+        <img id="hover-logo" src="" alt="Project Logo" class="w-[450px] h-auto opacity-15 blur-lg">
+    </div>
+
+    <script>
+        // Time updater
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                timeZone: 'Asia/Kolkata',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            };
+            const timeString = now.toLocaleTimeString('en-US', options);
+            document.getElementById('time').textContent = timeString;
+        }
+
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Refined Hover effect script
+        document.addEventListener('DOMContentLoaded', () => {
+            const bgOverlay = document.getElementById('background-overlay');
+            const logoOverlay = document.getElementById('logo-overlay');
+            const hoverLogo = document.getElementById('hover-logo');
+
+            const fadeElements = document.querySelectorAll(
+                '#main-logo-link, header nav a, .hero-section h1, .hero-section p, .projects-section h2, .projects-section h3, .project-tile, section.py-24 h2, footer h4, footer ul a, .mt-16 a, .mt-16 span, .mt-16 .text-right p'
+            );
+
+            const projectTiles = document.querySelectorAll('.project-tile');
+            const interactiveElements = document.querySelectorAll('header a, .project-tile, footer a, .mt-16 a, #main-logo-link');
+
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', e => {
+                    const currentItem = e.currentTarget;
+
+                    fadeElements.forEach(el => {
+                        el.style.opacity = '0.10';
+                        el.style.transition = 'opacity 0.3s ease-in-out';
+                    });
+
+                    currentItem.style.opacity = '1';
+                    
+                    if (currentItem.closest('footer') || currentItem.closest('.mt-16')) {
+                        const parentSection = currentItem.closest('.animate-on-load');
+                        if (parentSection) {
+                            const heading = parentSection.querySelector('h4');
+                            if(heading) heading.style.opacity = '1';
+                        }
+                    }
+
+                    if (currentItem.id === 'main-logo-link') {
+                        document.querySelector('.hero-section h1').style.opacity = '1';
+                        document.querySelector('.hero-section p').style.opacity = '1';
+                    }
+
+                    const isProjectHover = currentItem.classList.contains('project-tile') || currentItem.id === 'main-logo-link';
+                    if (isProjectHover) {
+                        const logoSrc = currentItem.dataset.logo;
+                        const gradient = currentItem.dataset.gradient;
+
+                        if (logoSrc && gradient) {
+                            hoverLogo.setAttribute('src', logoSrc);
+                            bgOverlay.style.backgroundImage = gradient;
+                            bgOverlay.style.opacity = '0.15';
+                            logoOverlay.style.opacity = '1';
+                        }
+
+                        projectTiles.forEach(tile => {
+                            if (tile !== currentItem) {
+                                tile.classList.add('grayscale');
+                            }
+                        });
+                        
+                         if (currentItem.id === 'main-logo-link') {
+                             projectTiles.forEach(tile => tile.classList.add('grayscale'));
+                         }
+                    }
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    fadeElements.forEach(el => {
+                        el.style.opacity = '1';
+                    });
+                    projectTiles.forEach(tile => {
+                        tile.classList.remove('grayscale');
+                    });
+                    bgOverlay.style.opacity = '0';
+                    logoOverlay.style.opacity = '0';
+                });
+            });
+
+            // Page load animation
+            const animatedItems = document.querySelectorAll('.animate-on-load');
+            animatedItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
 </html>
