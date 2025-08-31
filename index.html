@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +39,30 @@
             background-color: #FAFAF9;
             color: #0C0A09;
         }
+        
+        [data-theme="dark"] body {
+            background-color: #0C0A09;
+            color: #FAFAF9;
+        }
+
+        [data-theme="dark"] a {
+             color: #FAFAF9;
+        }
+        [data-theme="dark"] a:hover {
+            color: #BBBBBB;
+        }
+        
+        [data-theme="dark"] .text-gray-500 {
+            color: #A8A29E;
+        }
+        [data-theme="dark"] .text-gray-700 {
+            color: #D6D3D1;
+        }
+        [data-theme="dark"] footer .text-black {
+            color: #FFFFFF;
+        }
+
+
         .font-geist {
             font-family: 'Geist', sans-serif;
         }
@@ -59,6 +83,115 @@
         }
         .grayscale {
             filter: grayscale(100%);
+        }
+
+        /* Theme Switcher Styles */
+        .theme-toggle {
+            --size: 24px;
+            --animation-duration: 0.5s;
+
+            background: none;
+            border: none;
+            padding: 0;
+            inline-size: var(--size);
+            block-size: var(--size);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            cursor: pointer;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            outline-offset: 5px;
+        }
+        
+        [data-theme="light"] .theme-toggle {
+            --icon-fill: #000000;
+            --icon-fill-hover: #888888;
+        }
+        
+        [data-theme="dark"] .theme-toggle {
+            --icon-fill: #FFFFFF;
+            --icon-fill-hover: #BBBBBB;
+        }
+
+        .theme-toggle > svg {
+            inline-size: 100%;
+            block-size: 100%;
+            stroke-linecap: round;
+        }
+
+        .sun-and-moon > :is(.moon, .sun, .sun-beams) {
+            transform-origin: center center;
+        }
+
+        .sun-and-moon > :is(.moon, .sun) {
+            fill: var(--icon-fill);
+        }
+
+        .theme-toggle:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) {
+            fill: var(--icon-fill-hover);
+        }
+
+        .sun-and-moon > .sun-beams circle {
+            fill: var(--icon-fill);
+        }
+
+        .theme-toggle:is(:hover, :focus-visible) .sun-beams circle {
+            fill: var(--icon-fill-hover);
+        }
+
+        [data-theme="dark"] .sun {
+            transform: scale(1.75);
+        }
+
+        [data-theme="dark"] .sun-beams {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .moon > circle {
+            transform: translateX(-7px);
+        }
+
+        @supports (cx: 1px) {
+            [data-theme="dark"] .moon > circle {
+                transform: translateX(0);
+                cx: 17;
+            }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .sun {
+                transition: transform var(--animation-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            .sun-beams {
+                transition: transform var(--animation-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                    opacity var(--animation-duration) ease;
+            }
+            
+            [data-theme="dark"] .sun {
+                transition-timing-function: ease;
+                transition-duration: calc(var(--animation-duration) * 0.5);
+            }
+
+            [data-theme="dark"] .sun-beams {
+                transform: rotateZ(-25deg);
+                transition-duration: calc(var(--animation-duration) * 0.3);
+            }
+
+            .moon > circle {
+                transition: transform calc(var(--animation-duration) * 0.5) cubic-bezier(0, 0, 0.2, 1);
+            }
+
+            @supports (cx: 1px) {
+                .moon > circle {
+                    transition: cx calc(var(--animation-duration) * 0.5) cubic-bezier(0, 0, 0.2, 1);
+                }
+            }
+
+            [data-theme="dark"] .moon > circle {
+                transition-delay: calc(var(--animation-duration) * 0.5);
+                transition-duration: var(--animation-duration);
+            }
         }
     </style>
 </head>
@@ -190,9 +323,32 @@
                 <span class="md:hidden">•</span>
                 <a href="about.html" class="hover:text-black md:hidden">About</a>
             </div>
-            <div class="text-center md:text-right">
-                <p id="time"></p>
-                <p>Bengaluru, India</p>
+            <div class="flex items-end justify-center md:justify-end gap-4">
+                <div class="text-center md:text-right">
+                    <p id="time"></p>
+                    <p>Bengaluru, India</p>
+                </div>
+                <div class="theme-switcher-container">
+                    <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                        <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                            <mask class="moon" id="moon-mask">
+                                <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                                <circle cx="24" cy="10" r="6" fill="black" />
+                            </mask>
+                            <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                            <g class="sun-beams" stroke="currentColor">
+                                 <circle cx="12" cy="3" r="1.25" />
+                                 <circle cx="12" cy="21" r="1.25" />
+                                 <circle cx="5.64" cy="5.64" r="1.25" />
+                                 <circle cx="18.36" cy="18.36" r="1.25" />
+                                 <circle cx="3" cy="12" r="1.25" />
+                                 <circle cx="21" cy="12" r="1.25" />
+                                 <circle cx="5.64" cy="18.36" r="1.25" />
+                                 <circle cx="18.36" cy="5.64" r="1.25" />
+                            </g>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </footer>
@@ -233,6 +389,24 @@
 
         const projectTiles = document.querySelectorAll('.project-tile');
         const interactiveElements = document.querySelectorAll('header a, .project-tile, footer a, .mt-16 a, #main-logo-link');
+        
+        const themeSwitcherContainer = document.querySelector('.theme-switcher-container');
+        const allContentToFadeOnThemeHover = document.querySelectorAll(
+            'header, main, footer > .grid, .mt-16 > div:first-child, .flex.items-end > div:first-child'
+        );
+
+        themeSwitcherContainer.addEventListener('mouseenter', () => {
+            allContentToFadeOnThemeHover.forEach(el => {
+                el.style.transition = 'opacity 0.3s ease-in-out';
+                el.style.opacity = '0.10';
+            });
+        });
+
+        themeSwitcherContainer.addEventListener('mouseleave', () => {
+            allContentToFadeOnThemeHover.forEach(el => {
+                el.style.opacity = '1';
+            });
+        });
 
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', e => {
@@ -301,6 +475,96 @@
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
             }, index * 50);
+        });
+
+        // Theme switcher logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        const getSystemTheme = () => {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        const applyTheme = (theme) => {
+            htmlEl.setAttribute('data-theme', theme);
+            htmlEl.className = theme;
+            themeToggle.setAttribute('aria-label', theme);
+        };
+
+        const toggleTheme = (event) => {
+            const newTheme = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+
+            if (!document.startViewTransition) {
+                localStorage.setItem('theme-preference', newTheme);
+                applyTheme(newTheme);
+                return;
+            }
+            
+            const x = event.clientX;
+            const y = event.clientY;
+            const maxSize = Math.max(window.innerWidth, window.innerHeight) * 10;
+
+            const transitionStyles = `
+            ::view-transition-old(root),
+            ::view-transition-new(root) {
+                animation: none;
+                mix-blend-mode: normal;
+            }
+            ::view-transition-group(root) {
+                animation-duration: 1000ms;
+                animation-timing-function: ease-in-out;
+            }
+            ::view-transition-new(root) {
+                animation: themeReveal 1000ms ease-in-out;
+                transform-origin: ${x}px ${y}px;
+                mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-66 -66 132 132"><defs><filter id="blur"><feGaussianBlur stdDeviation="5"/></filter></defs><circle cx="0" cy="0" r="33" fill="black" filter="url(%23blur)"/></svg>') ${x}px ${y}px / 0 no-repeat;
+            }
+            ::view-transition-old(root) {
+                transform-origin: ${x}px ${y}px;
+                animation: none;
+                z-index: -1;
+            }
+            @keyframes themeReveal {
+                0% {
+                    mask-position: ${x}px ${y}px;
+                    mask-size: 0;
+                }
+                100% {
+                    mask-position: ${x - maxSize / 2}px ${y - maxSize / 2}px;
+                    mask-size: ${maxSize}px;
+                }
+            }
+            `;
+
+            const styleSheet = document.createElement("style");
+            styleSheet.id = "theme-transition-styles";
+            styleSheet.textContent = transitionStyles;
+            document.head.appendChild(styleSheet);
+            
+            const transition = document.startViewTransition(() => {
+                localStorage.setItem('theme-preference', newTheme);
+                applyTheme(newTheme);
+            });
+
+            transition.finished.then(() => {
+                const styleElement = document.getElementById("theme-transition-styles");
+                if (styleElement) styleElement.remove();
+            });
+        };
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Set initial theme
+        const storedTheme = localStorage.getItem('theme-preference');
+        const initialTheme = storedTheme || getSystemTheme();
+        applyTheme(initialTheme);
+        
+        // Listen for system theme changes
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+            const newSystemTheme = e.matches ? "dark" : "light";
+            if (!localStorage.getItem('theme-preference')) {
+                applyTheme(newSystemTheme);
+            }
         });
     });
 </script>
