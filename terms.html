@@ -9,6 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        // Immediately apply theme from localStorage to prevent FOUC
+        (function() {
+            const storedTheme = localStorage.getItem('theme-preference');
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            const initialTheme = storedTheme || systemTheme;
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        })();
+    </script>
     <style>
         @font-face {
             font-family: 'Redaction 10';
@@ -33,6 +42,20 @@
             font-family: 'Geist', sans-serif;
             background-color: #FAFAF9;
             color: #0C0A09;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        [data-theme="dark"] body {
+            background-color: #18181B;
+            color: #FAFAFA;
+        }
+        [data-theme="dark"] .text-gray-600 {
+            color: #A1A1AA;
+        }
+        [data-theme="dark"] .text-black, [data-theme="dark"] a.text-black {
+            color: #FAFAFA;
+        }
+        [data-theme="dark"] a:hover, [data-theme="dark"] a.text-black:hover {
+            color: #D4D4D8;
         }
         .font-redaction {
             font-family: 'Redaction 10', sans-serif;

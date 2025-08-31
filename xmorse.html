@@ -9,6 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        // Immediately apply theme from localStorage to prevent FOUC
+        (function() {
+            const storedTheme = localStorage.getItem('theme-preference');
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            const initialTheme = storedTheme || systemTheme;
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        })();
+    </script>
     <style>
         @font-face {
             font-family: 'Redaction 10';
@@ -32,6 +41,34 @@
             font-family: 'Geist', sans-serif;
             color: #0C0A09;
             background-image: linear-gradient(to bottom right, #EEEEEE, #767676);
+            transition: background-image 0.5s ease, color 0.5s ease;
+        }
+        html[data-theme="dark"] body {
+            background-image: linear-gradient(to bottom right, #ACACAC, #363636);
+            color: #FAFAFA;
+        }
+        html[data-theme="dark"] .text-gray-800 {
+            color: #D4D4D8;
+        }
+        html[data-theme="dark"] .text-black, html[data-theme="dark"] a.text-black {
+            color: #FAFAFA;
+        }
+        html[data-theme="dark"] a.text-black:hover {
+            color: #A1A1AA;
+        }
+        html[data-theme="dark"] .bg-black {
+            background-color: #FAFAFA;
+            color: #18181B;
+        }
+        html[data-theme="dark"] .bg-black:hover {
+            background-color: #D4D4D8;
+        }
+        html[data-theme="dark"] .bg-white\/50 {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #FAFAFA;
+        }
+        html[data-theme="dark"] .bg-white\/50:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         .font-redaction {
             font-family: 'Redaction 10', sans-serif;
@@ -44,30 +81,30 @@
     </style>
 </head>
 <body class="font-geist antialiased">
-    <main class="min-h-screen flex flex-col items-center justify-center text-center p-8">
-        <div class="animate-on-load">
-            <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-48 h-48 mx-auto">
-        </div>
-        <h1 class="font-redaction text-4xl md:text-6xl font-medium mt-8 animate-on-load">Morse Code Translator</h1>
-        <p class="max-w-2xl mt-4 text-xl text-gray-800 animate-on-load">
-           A web application that translates text to Morse code and vice versa, offering a digital rendition of a historic communication method.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mt-8 animate-on-load">
-            <a href="https://thegandabherunda.github.io/morse-code-translator/" target="_blank" class="bg-black text-white px-6 py-3 rounded-full text-lg hover:bg-gray-800 transition-colors">Live Demo</a>
-            <a href="https://github.com/kushagra-xo/morse-code-translator" target="_blank" class="bg-white/50 text-black px-6 py-3 rounded-full text-lg hover:bg-white/80 transition-colors">View on GitHub</a>
-        </div>
-        <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedItems = document.querySelectorAll('.animate-on-load');
-            animatedItems.forEach((item, index) => {
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
+<main class="min-h-screen flex flex-col items-center justify-center text-center p-8">
+    <div class="animate-on-load">
+        <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-48 h-48 mx-auto">
+    </div>
+    <h1 class="font-redaction text-4xl md:text-6xl font-medium mt-8 animate-on-load">Morse Code Translator</h1>
+    <p class="max-w-2xl mt-4 text-xl text-gray-800 animate-on-load">
+        A web application that translates text to Morse code and vice versa, offering a digital rendition of a historic communication method.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4 mt-8 animate-on-load">
+        <a href="https://thegandabherunda.github.io/morse-code-translator/" target="_blank" class="bg-black text-white px-6 py-3 rounded-full text-lg hover:bg-gray-800 transition-colors">Live Demo</a>
+        <a href="https://github.com/kushagra-xo/morse-code-translator" target="_blank" class="bg-white/50 text-black px-6 py-3 rounded-full text-lg hover:bg-white/80 transition-colors">View on GitHub</a>
+    </div>
+    <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline animate-on-load">← Back to Home</a>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedItems = document.querySelectorAll('.animate-on-load');
+        animatedItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 100);
         });
-    </script>
+    });
+</script>
 </body>
 </html>
