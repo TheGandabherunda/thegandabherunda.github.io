@@ -56,6 +56,11 @@
         [data-theme="dark"] .text-gray-500 {
             color: #A1A1AA;
         }
+
+        [data-theme="dark"] footer ul a {
+            color: #A1A1AA;
+        }
+
         [data-theme="dark"] .text-gray-700 {
             color: #E4E4E7;
         }
@@ -64,6 +69,9 @@
         }
         [data-theme="dark"] header nav a:hover {
              color: #D4D4D8;
+        }
+        [data-theme="dark"] .footer-border {
+            border-color: #27272A;
         }
 
 
@@ -88,6 +96,43 @@
         .grayscale {
             filter: grayscale(100%);
         }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            background-color: transparent;
+            border: 1px solid #E4E4E7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        [data-theme="dark"] .filter-btn {
+            border: 1px solid #3F3F46;
+        }
+        .filter-btn:hover {
+            background-color: #F4F4F5;
+        }
+        [data-theme="dark"] .filter-btn:hover {
+            background-color: #27272A;
+        }
+        .filter-btn.active {
+            background-color: #0C0A09;
+            color: #FAFAF9;
+            border-color: #0C0A09;
+        }
+        [data-theme="dark"] .filter-btn.active {
+            background-color: #FAFAFA;
+            color: #18181B;
+            border-color: #FAFAFA;
+        }
+
 
         /* Theme Switcher Styles */
         .theme-toggle {
@@ -201,92 +246,130 @@
 </head>
 <body class="font-geist antialiased">
 
-<div class="relative z-20">
-    <!-- Header -->
-    <header class="p-8">
-        <nav class="flex justify-center md:justify-between items-start">
-            <a href="index.html" id="main-logo-link" class="flex items-center space-x-2 cursor-pointer animate-on-load" data-logo="assets/logo.svg" data-gradient="linear-gradient(to bottom right, #EAEAEA, #D2D2D2)" data-gradient-dark="linear-gradient(to bottom right, #3f3f46, #18181b)">
-                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-[230px]">
-            </a>
-            <div class="hidden md:flex items-center space-x-8 text-[20px] tracking-wide pt-6 animate-on-load">
-                <a href="#apps" class="hover:text-black">Apps</a>
-                <a href="#websites" class="hover:text-black">Websites</a>
-                <a href="about.html" class="hover:text-black">About</a>
-            </div>
-        </nav>
-    </header>
+<div class="fixed top-8 right-8 z-50">
+    <div class="theme-switcher-container">
+        <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+            <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24">
+                <mask class="moon" id="moon-mask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <circle cx="24" cy="10" r="6" fill="black" />
+                </mask>
+                <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                <g class="sun-beams" stroke="currentColor">
+                    <circle cx="12" cy="3" r="1.25" />
+                    <circle cx="12" cy="21" r="1.25" />
+                    <circle cx="5.64" cy="5.64" r="1.25" />
+                    <circle cx="18.36" cy="18.36" r="1.25" />
+                    <circle cx="3" cy="12" r="1.25" />
+                    <circle cx="21" cy="12" r="1.25" />
+                    <circle cx="5.64" cy="18.36" r="1.25" />
+                    <circle cx="18.36" cy="5.64" r="1.25" />
+                </g>
+            </svg>
+        </button>
+    </div>
+</div>
 
+<div class="relative z-20">
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="px-8 pt-16 md:pt-24 pb-24 md:pb-32 hero-section">
-            <div class="max-w-xl mx-auto md:mx-0 text-center md:text-left">
+        <section class="min-h-screen flex flex-col justify-center items-center hero-section">
+            <a href="index.html" id="main-logo-link" class="mb-[24px] cursor-pointer animate-on-load" data-logo="assets/logo.svg" data-gradient="linear-gradient(to bottom right, #EAEAEA, #D2D2D2)" data-gradient-dark="linear-gradient(to bottom right, #3f3f46, #18181b)">
+                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-[230px]">
+            </a>
+            <div class="max-w-xl mx-auto text-center">
                 <h1 class="font-redaction text-[60px] font-medium tracking-tighter leading-none animate-on-load">The<br>Gandabherunda</h1>
                 <p class="mt-4 text-[20px] text-gray-500 animate-on-load">Crafting elegant, free software to empower digital freedom.</p>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section class="px-8 pt-0 pb-24 projects-section">
-            <h2 class="text-[20px] animate-on-load">Our Projects</h2>
-
-            <!-- Apps -->
-            <div id="apps" class="mt-12 scroll-mt-24">
-                <h3 class="text-[20px] text-gray-700 mb-8 animate-on-load">Apps</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <a href="xpomozen.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/pomozen.svg" data-gradient="linear-gradient(to bottom right, #FEE5FF, #FBBDFF)" data-gradient-dark="linear-gradient(to bottom right, #D49FD7, #550059)">
+        <section class="min-h-screen flex flex-col py-16 projects-section overflow-hidden">
+            <h2 class="text-[20px] animate-on-load mb-4 pl-8">Our Projects</h2>
+            <div id="filter-container" class="pl-8 mb-8">
+                <div id="filter-buttons" class="flex space-x-2">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="app">Apps</button>
+                    <button class="filter-btn" data-filter="website">Websites</button>
+                </div>
+            </div>
+            <div class="flex-grow flex items-center">
+                <div id="projects-scroll-container" class="flex overflow-x-auto gap-8 py-4 no-scrollbar pl-8 pr-8">
+                    <!-- Pomozen -->
+                    <a href="xpomozen.html" class="flex-shrink-0 w-96 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/pomozen.svg" data-gradient="linear-gradient(to bottom right, #FEE5FF, #FBBDFF)" data-gradient-dark="linear-gradient(to bottom right, #D49FD7, #550059)" data-category="app">
                         <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #FEE5FF, #FBBDFF)">
                             <img src="assets/pomozen.svg" alt="Pomozen Logo" class="w-[100px] h-auto">
                         </div>
-                        <div class="mt-4 flex justify-end items-center gap-2">
-                            <p class="text-[20px]">Pomozen</p>
-                            <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-[20px]">Pomozen</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                            <p class="mt-2 text-gray-500">An open-source Pomodoro timer to boost productivity and focus.</p>
                         </div>
                     </a>
-                    <a href="xopenjot.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/openjot.svg" data-gradient="linear-gradient(to bottom right, #F9F0FF, #FFC4BE)" data-gradient-dark="linear-gradient(to bottom right, #A592B3, #430600)">
+                    <!-- OpenJot -->
+                    <a href="xopenjot.html" class="flex-shrink-0 w-96 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/openjot.svg" data-gradient="linear-gradient(to bottom right, #F9F0FF, #FFC4BE)" data-gradient-dark="linear-gradient(to bottom right, #A592B3, #430600)" data-category="app">
                         <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #F9F0FF, #FFC4BE)">
                             <img src="assets/openjot.svg" alt="OpenJot Logo" class="w-[100px] h-auto">
                         </div>
-                        <div class="mt-4 flex justify-end items-center gap-2">
-                            <p class="text-[20px]">OpenJot</p>
-                            <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-[20px]">OpenJot</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                            <p class="mt-2 text-gray-500">A minimal, private, open-source journaling app that stores data locally.</p>
+                        </div>
+                    </a>
+                    <!-- NimFile -->
+                    <a href="xnimfile.html" class="flex-shrink-0 w-96 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimfile.svg" data-gradient="linear-gradient(to bottom right, #FFF4EE, #FFAB79)" data-gradient-dark="linear-gradient(to bottom right, #AC998E, #4B1C00)" data-category="website">
+                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #FFF4EE, #FFAB79)">
+                            <img src="assets/nimfile.svg" alt="NimFile Logo" class="w-[100px] h-auto">
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-[20px]">NimFile</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                            <p class="mt-2 text-gray-500">A privacy-focused platform for secure, peer-to-peer file transfers.</p>
+                        </div>
+                    </a>
+                    <!-- NimSpace -->
+                    <a href="xnimspace.html" class="flex-shrink-0 w-96 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimspace.svg" data-gradient="linear-gradient(to bottom right, #FFE5E6, #FF9EA3)" data-gradient-dark="linear-gradient(to bottom right, #C09A9C, #630005)" data-category="website">
+                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #FFE5E6, #FF9EA3)">
+                            <img src="assets/nimspace.svg" alt="NimSpace Logo" class="w-[100px] h-auto">
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-[20px]">NimSpace</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                            <p class="mt-2 text-gray-500">Serverless P2P communication, file sharing, and synchronized media.</p>
+                        </div>
+                    </a>
+                    <!-- Morse Code Translator -->
+                    <a href="xmorse.html" class="flex-shrink-0 w-96 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/morse.svg" data-gradient="linear-gradient(to bottom right, #EEEEEE, #767676)" data-gradient-dark="linear-gradient(to bottom right, #ACACAC, #363636)" data-category="website">
+                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #EEEEEE, #767676)">
+                            <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-[100px] h-auto">
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-[20px]">Morse Code Translator</p>
+                                <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
+                            </div>
+                            <p class="mt-2 text-gray-500">A web app to translate text to Morse code and back.</p>
                         </div>
                     </a>
                 </div>
             </div>
-
-            <!-- Websites -->
-            <div id="websites" class="mt-20 scroll-mt-24">
-                <h3 class="text-[20px] text-gray-700 mb-8 animate-on-load">Websites</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <a href="xnimfile.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimfile.svg" data-gradient="linear-gradient(to bottom right, #FFF4EE, #FFAB79)" data-gradient-dark="linear-gradient(to bottom right, #AC998E, #4B1C00)">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #FFF4EE, #FFAB79)">
-                            <img src="assets/nimfile.svg" alt="NimFile Logo" class="w-[100px] h-auto">
-                        </div>
-                        <div class="mt-4 flex justify-end items-center gap-2">
-                            <p class="text-[20px]">NimFile</p>
-                            <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
-                        </div>
-                    </a>
-                    <a href="xnimspace.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/nimspace.svg" data-gradient="linear-gradient(to bottom right, #FFE5E6, #FF9EA3)" data-gradient-dark="linear-gradient(to bottom right, #C09A9C, #630005)">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #FFE5E6, #FF9EA3)">
-                            <img src="assets/nimspace.svg" alt="NimSpace Logo" class="w-[100px] h-auto">
-                        </div>
-                        <div class="mt-4 flex justify-end items-center gap-2">
-                            <p class="text-[20px]">NimSpace</p>
-                            <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
-                        </div>
-                    </a>
-                    <a href="xmorse.html" class="col-span-1 group project-tile transition-all duration-500 animate-on-load" data-logo="assets/morse.svg" data-gradient="linear-gradient(to bottom right, #EEEEEE, #767676)" data-gradient-dark="linear-gradient(to bottom right, #ACACAC, #363636)">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl" style="background-image: linear-gradient(to bottom right, #EEEEEE, #767676)">
-                            <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-[100px] h-auto">
-                        </div>
-                        <div class="mt-4 flex justify-end items-center gap-2">
-                            <p class="text-[20px]">Morse Code Translator</p>
-                            <span class="material-symbols-outlined max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span>
-                        </div>
-                    </a>
-                </div>
+            <div id="nav-arrow-container" class="flex justify-end space-x-4 pr-8">
+                <button id="scroll-left-btn" class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button id="scroll-right-btn" class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
             </div>
         </section>
 
@@ -298,60 +381,40 @@
 
     <!-- Footer -->
     <footer class="p-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-500">
+        <div class="flex flex-col md:flex-row justify-around text-gray-500 text-center md:text-left">
             <div class="animate-on-load">
                 <h4 class="font-medium text-black mb-4 text-[20px]">GitHub</h4>
                 <ul class="text-[20px] space-y-2">
-                    <li><a href="https://github.com/TheGandabherunda" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>The Gandabherunda | ProjectG</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/abisri99" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Abilash</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/arunuserx" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Arun</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>The Gandabherunda | ProjectG</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/abisri99" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Abilash</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/arunuserx" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Arun</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
                 </ul>
             </div>
-            <div class="animate-on-load"></div> <!-- Empty div for spacing -->
             <div class="animate-on-load">
                 <h4 class="font-medium text-black mb-4 text-[20px]">Projects</h4>
                 <ul class="text-[20px] space-y-2">
-                    <li><a href="https://github.com/TheGandabherunda/Pomozen" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Pomozen</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>OpenJot</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/NimFile" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>NimFile</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/NimSpace" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>NimSpace</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/morse-code-translator" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center gap-2 group"><span>Morse Code Translator</span><span class="material-symbols-outlined text-[20px] leading-none max-w-0 overflow-hidden transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-in-out group-hover:max-w-xl">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/Pomozen" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Pomozen</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>OpenJot</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/NimFile" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>NimFile</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/NimSpace" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>NimSpace</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/morse-code-translator" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Morse Code Translator</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                </ul>
+            </div>
+            <div class="animate-on-load">
+                <h4 class="font-medium text-black mb-4 text-[20px]">Navigate</h4>
+                <ul class="text-[20px] space-y-2">
+                    <li><a href="about.html" class="hover:text-black inline-flex items-center group relative"><span>About</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="terms.html" class="hover:text-black inline-flex items-center group relative"><span>Terms & Conditions</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
+                    <li><a href="privacy.html" class="hover:text-black inline-flex items-center group relative"><span>Privacy policy</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span></a></li>
                 </ul>
             </div>
         </div>
-        <div class="mt-16 pt-8 text-gray-500 flex flex-col md:flex-row justify-between items-center text-[20px] animate-on-load">
-            <div class="inline-flex items-center gap-4 mb-4 md:mb-0">
-                <a href="terms.html" class="hover:text-black">Terms & Conditions</a>
-                <span>•</span>
-                <a href="privacy.html" class="hover:text-black">Privacy policy</a>
-                <span class="md:hidden">•</span>
-                <a href="about.html" class="hover:text-black md:hidden">About</a>
-            </div>
+        <div class="mt-16 text-gray-500 flex flex-col md:flex-row justify-between items-center text-[20px] animate-on-load">
+            <p class="mb-4 md:mb-0">© 2025 The Gandabherunda</p>
             <div class="flex items-end justify-center md:justify-end gap-4">
                 <div class="text-center md:text-right">
                     <p id="time"></p>
                     <p>Bengaluru, India</p>
-                </div>
-                <div class="theme-switcher-container">
-                    <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
-                        <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-                            <mask class="moon" id="moon-mask">
-                                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                                <circle cx="24" cy="10" r="6" fill="black" />
-                            </mask>
-                            <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
-                            <g class="sun-beams" stroke="currentColor">
-                                <circle cx="12" cy="3" r="1.25" />
-                                <circle cx="12" cy="21" r="1.25" />
-                                <circle cx="5.64" cy="5.64" r="1.25" />
-                                <circle cx="18.36" cy="18.36" r="1.25" />
-                                <circle cx="3" cy="12" r="1.25" />
-                                <circle cx="21" cy="12" r="1.25" />
-                                <circle cx="5.64" cy="18.36" r="1.25" />
-                                <circle cx="18.36" cy="5.64" r="1.25" />
-                            </g>
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -388,15 +451,15 @@
         const hoverLogo = document.getElementById('hover-logo');
 
         const fadeElements = document.querySelectorAll(
-            '#main-logo-link, header nav a, .hero-section h1, .hero-section p, .projects-section h2, .projects-section h3, .project-tile, section.px-8 h2, footer h4, footer ul a, .mt-16 a, .mt-16 span, .mt-16 .text-right p'
+            '#main-logo-link, .hero-section h1, .hero-section p, .projects-section h2, .project-tile, #filter-container, #nav-arrow-container, section.px-8 h2, footer h4, footer ul a, .mt-16 p'
         );
 
         const projectTiles = document.querySelectorAll('.project-tile');
-        const interactiveElements = document.querySelectorAll('header a, .project-tile, footer a, .mt-16 a, #main-logo-link');
+        const interactiveElements = document.querySelectorAll('.project-tile, footer a, #main-logo-link');
 
         const themeSwitcherContainer = document.querySelector('.theme-switcher-container');
         const allContentToFadeOnThemeHover = document.querySelectorAll(
-            'header, main, footer > .grid, .mt-16 > div:first-child, .flex.items-end > div:first-child'
+            'main, footer > .flex, .mt-16 > p, .mt-16 .text-right'
         );
 
         themeSwitcherContainer.addEventListener('mouseenter', () => {
@@ -423,7 +486,7 @@
 
                 currentItem.style.opacity = '1';
 
-                if (currentItem.closest('footer') || currentItem.closest('.mt-16')) {
+                if (currentItem.closest('footer')) {
                     const parentSection = currentItem.closest('.animate-on-load');
                     if (parentSection) {
                         const heading = parentSection.querySelector('h4');
@@ -482,6 +545,63 @@
             }, index * 50);
         });
 
+        // Project scroll and filter functionality
+        const scrollContainer = document.getElementById('projects-scroll-container');
+        const leftBtn = document.getElementById('scroll-left-btn');
+        const rightBtn = document.getElementById('scroll-right-btn');
+        const filterButtonsContainer = document.getElementById('filter-buttons');
+        const allProjectTiles = document.querySelectorAll('.project-tile');
+
+        const updateButtonState = () => {
+            if (!scrollContainer || !leftBtn || !rightBtn) return;
+            const tolerance = 1;
+            leftBtn.disabled = scrollContainer.scrollLeft <= 0;
+            rightBtn.disabled = scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth - tolerance;
+        };
+
+        if (scrollContainer && leftBtn && rightBtn) {
+            const scrollAmount = 384 + 32; // w-96 (384px) + gap-8 (32px)
+            rightBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+            leftBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+            scrollContainer.addEventListener('scroll', updateButtonState);
+            window.addEventListener('resize', updateButtonState);
+        }
+
+        if (filterButtonsContainer && allProjectTiles.length > 0) {
+            filterButtonsContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('.filter-btn');
+                if (button) {
+                    const filter = button.dataset.filter;
+
+                    filterButtonsContainer.querySelector('.active').classList.remove('active');
+                    button.classList.add('active');
+
+                    allProjectTiles.forEach(tile => {
+                        const category = tile.dataset.category;
+                        if (filter === 'all' || filter === category) {
+                            tile.classList.remove('hidden');
+                        } else {
+                            tile.classList.add('hidden');
+                        }
+                    });
+
+                    if (scrollContainer) {
+                       scrollContainer.scrollLeft = 0;
+                       // Use a timeout to allow the DOM to reflow after hiding/showing elements.
+                       // This ensures the scroll width is correct when updating button states.
+                       setTimeout(updateButtonState, 50);
+                    }
+                }
+            });
+        }
+
+        updateButtonState();
+
+
         // Theme switcher logic
         const themeToggle = document.getElementById('theme-toggle');
         const htmlEl = document.documentElement;
@@ -492,13 +612,76 @@
 
         const applyTheme = (theme) => {
             htmlEl.setAttribute('data-theme', theme);
+            htmlEl.className = theme; // Required for View Transition API targeting
             themeToggle.setAttribute('aria-label', theme);
         };
 
-        const toggleTheme = () => {
+        const toggleTheme = (event) => {
             const newTheme = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            localStorage.setItem('theme-preference', newTheme);
-            applyTheme(newTheme);
+
+            if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                localStorage.setItem('theme-preference', newTheme);
+                applyTheme(newTheme);
+                return;
+            }
+
+            const x = event.clientX;
+            const y = event.clientY;
+            const maxSize = Math.max(window.innerWidth, window.innerHeight) * 10;
+
+            const transitionStyles = `
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-group(root) {
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+}
+::view-transition-new(root) {
+    animation: themeReveal 1000ms ease-in-out;
+    transform-origin: ${x}px ${y}px;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-66 -66 132 132"><defs><filter id="blur"><feGaussianBlur stdDeviation="5"/></filter></defs><circle cx="0" cy="0" r="33" fill="black" filter="url(%23blur)"/></svg>') ${x}px ${y}px / 0 no-repeat;
+}
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+    transform-origin: ${x}px ${y}px;
+    animation: none;
+    z-index: -1;
+}
+@keyframes themeReveal {
+    0% {
+        mask-position: ${x}px ${y}px;
+        mask-size: 0;
+    }
+    100% {
+        mask-position: ${x - maxSize / 2}px ${y - maxSize / 2}px;
+        mask-size: ${maxSize}px;
+    }
+}
+`;
+
+            const styleSheet = document.createElement("style");
+            styleSheet.id = "theme-transition-styles";
+            styleSheet.textContent = transitionStyles;
+            document.head.appendChild(styleSheet);
+
+            const transition = document.startViewTransition(() => {
+                localStorage.setItem('theme-preference', newTheme);
+                applyTheme(newTheme);
+            });
+
+            transition.finished.then(() => {
+                setTimeout(() => {
+                    const styleElement = document.getElementById("theme-transition-styles");
+                    if (styleElement) styleElement.remove();
+                }, 100);
+            }).catch((error) => {
+                console.error("View transition failed:", error);
+                localStorage.setItem('theme-preference', newTheme);
+                applyTheme(newTheme);
+            });
         };
 
         themeToggle.addEventListener('click', toggleTheme);
@@ -519,3 +702,5 @@
 </script>
 </body>
 </html>
+
+
