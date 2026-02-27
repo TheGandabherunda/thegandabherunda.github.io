@@ -5,27 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenJot - The Gandabherunda</title>
     <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Gloock&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
 </head>
-<body class="font-geist antialiased project-page page-openjot">
-<main class="min-h-screen flex flex-col items-center justify-center text-center p-8">
+<body class="project-page page-openjot">
+<main class="project-page-main">
     <div>
-        <img src="assets/openjot.svg" alt="OpenJot Logo" class="w-48 h-48 mx-auto">
+        <img src="assets/openjot.svg" alt="OpenJot Logo" class="project-page-logo">
     </div>
-    <h1 class="font-gloock text-5xl md:text-7xl font-medium mt-8">OpenJot</h1>
-    <p class="max-w-2xl mt-4 text-xl text-gray-800">
+    <h1 class="project-page-title">OpenJot</h1>
+    <p class="project-page-desc">
         A minimal and open-source journaling app designed for privacy and simplicity. All your thoughts are stored securely on your device, never in the cloud.
     </p>
-    <div class="flex flex-wrap justify-center gap-4 mt-8">
-        <a href="https://github.com/TheGandabherunda/OpenJot/releases" target="_blank" class="bg-black text-white px-6 py-3 rounded-full text-lg hover:bg-gray-800">Download APK</a>
-        <a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" class="bg-zinc-100 text-black px-6 py-3 rounded-full text-lg hover:bg-zinc-200">View on GitHub</a>
+    <div class="project-actions">
+        <a href="https://github.com/TheGandabherunda/OpenJot/releases" target="_blank" class="btn btn-primary">Download APK</a>
+        <a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" class="btn btn-secondary">View on GitHub</a>
     </div>
-    <a href="index.html" class="inline-block mt-12 text-[20px] text-black hover:underline">← Back to Home</a>
+    <a href="index.html" class="back-link">← Back to Home</a>
 </main>
 </body>
 </html>

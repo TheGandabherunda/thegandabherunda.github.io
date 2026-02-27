@@ -5,159 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Gandabherunda</title>
     <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Gloock&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Gloock&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
 </head>
-<body class="font-geist antialiased page-standard">
+<body class="page-standard">
 
-<div class="relative z-20">
+<div class="relative-wrapper">
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="min-h-screen flex flex-col justify-center items-center hero-section">
-            <a href="index.html" id="main-logo-link" class="mb-[24px] cursor-pointer" data-logo="assets/logo.svg">
-                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="w-[230px] h-[230px]">
+        <section class="hero-section">
+            <a href="index.html" id="main-logo-link" class="hero-logo-link"
+               data-logo="assets/logo.svg">
+                <img src="assets/logo.svg" alt="The Gandabherunda Logo" class="hero-logo">
             </a>
-            <div class="max-w-xl mx-auto text-center">
-                <h1 class="font-gloock text-[60px] font-medium tracking-tighter leading-none">The<br>Gandabherunda</h1>
-                <p class="mt-4 text-[20px] text-gray-500">Crafting elegant, free software to empower digital freedom.</p>
+            <div class="hero-text-container">
+                <h1 class="hero-title">The<br>Gandabherunda</h1>
+                <p class="hero-subtitle">Crafting elegant, free software to empower digital
+                    freedom.</p>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section class="min-h-screen flex flex-col py-16 projects-section overflow-hidden">
-            <h2 class="text-[20px] mb-4 pl-8">Our Projects</h2>
-            <div id="filter-container" class="pl-8 mb-8">
-                <div id="filter-buttons" class="flex space-x-2">
+        <section class="projects-section">
+            <h2 class="section-title">Our Projects</h2>
+            <div id="filter-container" class="filter-container">
+                <div id="filter-buttons" class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="app">Apps</button>
                     <button class="filter-btn" data-filter="website">Websites</button>
                 </div>
             </div>
-            <div class="flex-grow flex items-center">
-                <div id="projects-scroll-container" class="flex overflow-x-auto gap-8 py-4 no-scrollbar pl-8 pr-8">
+            <div class="projects-scroll-wrapper">
+                <div id="projects-scroll-container" class="projects-scroll-container no-scrollbar">
                     <!-- Pomozen -->
-                    <a href="pomozen_.html" class="flex-shrink-0 w-96 group project-tile" data-category="app">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl bg-zinc-100">
-                            <img src="assets/pomozen.svg" alt="Pomozen Logo" class="w-[100px] h-auto">
+                    <a href="pomozen_.html" class="project-tile" data-category="app">
+                        <div class="project-image-wrapper">
+                            <img src="assets/pomozen.svg" alt="Pomozen Logo" class="project-icon">
                         </div>
-                        <div class="mt-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-[20px]">Pomozen</p>
-                                <span class="material-symbols-outlined max-w-0 overflow-hidden group-hover:max-w-xl">arrow_outward</span>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <p class="project-title">Pomozen</p>
+                                <span class="material-symbols-outlined project-arrow">arrow_outward</span>
                             </div>
-                            <p class="mt-2 text-gray-500">An open-source Pomodoro timer to boost productivity and focus.</p>
+                            <p class="project-desc">An open-source Pomodoro timer to boost
+                                productivity and focus.</p>
                         </div>
                     </a>
                     <!-- OpenJot -->
-                    <a href="openjot_.html" class="flex-shrink-0 w-96 group project-tile" data-category="app">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl bg-zinc-100">
-                            <img src="assets/openjot.svg" alt="OpenJot Logo" class="w-[100px] h-auto">
+                    <a href="openjot_.html" class="project-tile" data-category="app">
+                        <div class="project-image-wrapper">
+                            <img src="assets/openjot.svg" alt="OpenJot Logo" class="project-icon">
                         </div>
-                        <div class="mt-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-[20px]">OpenJot</p>
-                                <span class="material-symbols-outlined max-w-0 overflow-hidden group-hover:max-w-xl">arrow_outward</span>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <p class="project-title">OpenJot</p>
+                                <span class="material-symbols-outlined project-arrow">arrow_outward</span>
                             </div>
-                            <p class="mt-2 text-gray-500">A minimal, private, open-source journaling app that stores data locally.</p>
+                            <p class="project-desc">A minimal, private, open-source journaling app
+                                that stores data locally.</p>
                         </div>
                     </a>
                     <!-- NimFile -->
-                    <a href="nimfile_.html" class="flex-shrink-0 w-96 group project-tile" data-category="website">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl bg-zinc-100">
-                            <img src="assets/nimfile.svg" alt="NimFile Logo" class="w-[100px] h-auto">
+                    <a href="nimfile_.html" class="project-tile" data-category="website">
+                        <div class="project-image-wrapper">
+                            <img src="assets/nimfile.svg" alt="NimFile Logo" class="project-icon">
                         </div>
-                        <div class="mt-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-[20px]">NimFile</p>
-                                <span class="material-symbols-outlined max-w-0 overflow-hidden group-hover:max-w-xl">arrow_outward</span>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <p class="project-title">NimFile</p>
+                                <span class="material-symbols-outlined project-arrow">arrow_outward</span>
                             </div>
-                            <p class="mt-2 text-gray-500">A privacy-focused platform for secure, peer-to-peer file transfers.</p>
+                            <p class="project-desc">A privacy-focused platform for secure,
+                                peer-to-peer file transfers.</p>
                         </div>
                     </a>
                     <!-- NimSpace -->
-                    <a href="nimspace_.html" class="flex-shrink-0 w-96 group project-tile" data-category="website">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl bg-zinc-100">
-                            <img src="assets/nimspace.svg" alt="NimSpace Logo" class="w-[100px] h-auto">
+                    <a href="nimspace_.html" class="project-tile" data-category="website">
+                        <div class="project-image-wrapper">
+                            <img src="assets/nimspace.svg" alt="NimSpace Logo" class="project-icon">
                         </div>
-                        <div class="mt-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-[20px]">NimSpace</p>
-                                <span class="material-symbols-outlined max-w-0 overflow-hidden group-hover:max-w-xl">arrow_outward</span>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <p class="project-title">NimSpace</p>
+                                <span class="material-symbols-outlined project-arrow">arrow_outward</span>
                             </div>
-                            <p class="mt-2 text-gray-500">Serverless P2P communication, file sharing, and synchronized media.</p>
+                            <p class="project-desc">Serverless P2P communication, file sharing, and
+                                synchronized media.</p>
                         </div>
                     </a>
                     <!-- Morse Code Translator -->
-                    <a href="morse_.html" class="flex-shrink-0 w-96 group project-tile" data-category="website">
-                        <div class="h-96 md:h-[480px] w-full flex items-center justify-center rounded-xl bg-zinc-100">
-                            <img src="assets/morse.svg" alt="Morse Code Translator Logo" class="w-[100px] h-auto">
+                    <a href="morse_.html" class="project-tile" data-category="website">
+                        <div class="project-image-wrapper">
+                            <img src="assets/morse.svg" alt="Morse Code Translator Logo"
+                                 class="project-icon">
                         </div>
-                        <div class="mt-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-[20px]">Morse Code Translator</p>
-                                <span class="material-symbols-outlined max-w-0 overflow-hidden group-hover:max-w-xl">arrow_outward</span>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <p class="project-title">Morse Code Translator</p>
+                                <span class="material-symbols-outlined project-arrow">arrow_outward</span>
                             </div>
-                            <p class="mt-2 text-gray-500">A web app to translate text to Morse code and back.</p>
+                            <p class="project-desc">A web app to translate text to Morse code and
+                                back.</p>
                         </div>
                     </a>
                 </div>
             </div>
-            <div id="nav-arrow-container" class="flex justify-end space-x-4 pr-8">
-                <button id="scroll-left-btn" class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900 text-zinc-50 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed">
+            <div id="nav-arrow-container" class="nav-arrow-container">
+                <button id="scroll-left-btn" class="nav-arrow-btn">
                     <span class="material-symbols-outlined">arrow_back</span>
                 </button>
-                <button id="scroll-right-btn" class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-900 text-zinc-50 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button id="scroll-right-btn" class="nav-arrow-btn">
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </button>
             </div>
         </section>
 
         <!-- Thank you section -->
-        <section class="px-8 py-24 md:py-32">
-            <h2 class="font-gloock text-[60px] text-center font-medium tracking-tight">Thank you for visiting.</h2>
+        <section class="thank-you-section">
+            <h2 class="thank-you-title">Thank you for visiting.</h2>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="p-8">
-        <div class="flex flex-col md:flex-row justify-around text-gray-500 text-center md:text-left">
+    <footer class="footer">
+        <div class="footer-links-container">
             <div>
-                <h4 class="font-medium text-black mb-4 text-[20px]">GitHub</h4>
-                <ul class="text-[20px] space-y-2">
-                    <li><a href="https://github.com/TheGandabherunda" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>The Gandabherunda | ProjectG</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/abisri99" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Abilash</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/arunuserx" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Arun</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
+                <h4 class="footer-column-title">GitHub</h4>
+                <ul class="footer-list">
+                    <li><a href="https://github.com/TheGandabherunda" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>The Gandabherunda | ProjectG</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/abisri99" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>Abilash</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/arunuserx" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>Arun</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-medium text-black mb-4 text-[20px]">Projects</h4>
-                <ul class="text-[20px] space-y-2">
-                    <li><a href="https://github.com/TheGandabherunda/Pomozen" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Pomozen</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>OpenJot</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/NimFile" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>NimFile</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/NimSpace" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>NimSpace</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="https://github.com/TheGandabherunda/morse-code-translator" target="_blank" rel="noopener noreferrer" class="hover:text-black inline-flex items-center group relative"><span>Morse Code Translator</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
+                <h4 class="footer-column-title">Projects</h4>
+                <ul class="footer-list">
+                    <li><a href="https://github.com/TheGandabherunda/Pomozen" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>Pomozen</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/OpenJot" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>OpenJot</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/NimFile" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>NimFile</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/NimSpace" target="_blank"
+                           rel="noopener noreferrer" class="footer-link"><span>NimSpace</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="https://github.com/TheGandabherunda/morse-code-translator"
+                           target="_blank" rel="noopener noreferrer" class="footer-link"><span>Morse Code Translator</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-medium text-black mb-4 text-[20px]">Navigate</h4>
-                <ul class="text-[20px] space-y-2">
-                    <li><a href="about.html" class="hover:text-black inline-flex items-center group relative"><span>About</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="terms.html" class="hover:text-black inline-flex items-center group relative"><span>Terms & Conditions</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
-                    <li><a href="privacy.html" class="hover:text-black inline-flex items-center group relative"><span>Privacy policy</span><span class="material-symbols-outlined text-[20px] leading-none absolute left-full ml-2 opacity-0 group-hover:opacity-100">arrow_outward</span></a></li>
+                <h4 class="footer-column-title">Navigate</h4>
+                <ul class="footer-list">
+                    <li><a href="about.html" class="footer-link"><span>About</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="terms.html"
+                           class="footer-link"><span>Terms & Conditions</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
+                    <li><a href="privacy.html" class="footer-link"><span>Privacy policy</span><span
+                            class="material-symbols-outlined">arrow_outward</span></a></li>
                 </ul>
             </div>
         </div>
-        <div class="mt-16 text-gray-500 flex flex-col md:flex-row justify-between items-center text-[20px]">
-            <p class="mb-4 md:mb-0">© 2025 The Gandabherunda</p>
-            <div class="flex items-end justify-center md:justify-end gap-4">
-                <div class="text-center md:text-right">
+        <div class="footer-bottom">
+            <p class="footer-bottom-text">© 2025 The Gandabherunda</p>
+            <div class="footer-bottom-right">
+                <div>
                     <p id="time"></p>
                     <p>Bengaluru, India</p>
                 </div>
