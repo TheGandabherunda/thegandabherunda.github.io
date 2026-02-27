@@ -1,87 +1,20 @@
 /* --- Fonts --- */
-@font-face {
-    font-family: 'Redaction 10';
-    src: url('assets/fonts/Redaction10-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Redaction 10';
-    src: url('assets/fonts/Redaction10-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Redaction 10';
-    src: url('assets/fonts/Redaction10-Italic.woff2') format('woff2');
-    font-weight: normal;
-    font-style: italic;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+/* Geist is loaded via Google Fonts in HTML files */
 
 body {
     font-family: 'Geist', sans-serif;
     color: #0C0A09;
-    transition: background-color 0.5s ease, color 0.5s ease, background-image 0.5s ease;
+    background-color: #FAFAF9;
 }
 
 /* --- Page Backgrounds --- */
-/* Standard Pages (Home, About, Privacy, Terms) */
 .page-standard { background-color: #FAFAF9; }
-[data-theme="dark"] .page-standard { background-color: #18181B; }
-
-/* Project Pages */
-.page-morse { background-image: linear-gradient(to bottom right, #EEEEEE, #767676); }
-[data-theme="dark"] .page-morse { background-image: linear-gradient(to bottom right, #ACACAC, #363636); }
-
-.page-nimfile { background-image: linear-gradient(to bottom right, #FFF4EE, #FFAB79); }
-[data-theme="dark"] .page-nimfile { background-image: linear-gradient(to bottom right, #AC998E, #4B1C00); }
-
-.page-nimspace { background-image: linear-gradient(to bottom right, #FFE5E6, #FF9EA3); }
-[data-theme="dark"] .page-nimspace { background-image: linear-gradient(to bottom right, #C09A9C, #630005); }
-
-.page-openjot { background-image: linear-gradient(to bottom right, #F9F0FF, #FFC4BE); }
-[data-theme="dark"] .page-openjot { background-image: linear-gradient(to bottom right, #A592B3, #430600); }
-
-.page-pomozen { background-image: linear-gradient(to bottom right, #FEE5FF, #FBBDFF); }
-[data-theme="dark"] .page-pomozen { background-image: linear-gradient(to bottom right, #D49FD7, #550059); }
-
-
-/* --- Dark Theme Overrides (Standard Pages) --- */
-[data-theme="dark"] body { color: #FAFAFA; }
-[data-theme="dark"] a { color: #FAFAFA; }
-[data-theme="dark"] a:hover { color: #D4D4D8; }
-[data-theme="dark"] .text-gray-500, [data-theme="dark"] .text-gray-600 { color: #A1A1AA; }
-[data-theme="dark"] .text-gray-700 { color: #E4E4E7; }
-[data-theme="dark"] footer ul a { color: #A1A1AA; }
-[data-theme="dark"] footer .text-black, [data-theme="dark"] header nav a { color: #FAFAFA; }
-[data-theme="dark"] header nav a:hover { color: #D4D4D8; }
-[data-theme="dark"] .footer-border { border-color: #27272A; }
-[data-theme="dark"] .text-black, [data-theme="dark"] a.text-black { color: #FAFAFA; }
-[data-theme="dark"] a:hover, [data-theme="dark"] a.text-black:hover { color: #D4D4D8; }
-
-
-/* --- Dark Theme Overrides (Project Specific Elements) --- */
-[data-theme="dark"] .project-page .text-gray-800 { color: #D4D4D8; }
-[data-theme="dark"] .project-page .bg-black { background-color: #FAFAFA; color: #18181B; }
-[data-theme="dark"] .project-page .bg-black:hover { background-color: #D4D4D8; }
-[data-theme="dark"] .project-page .bg-white\/50 { background-color: rgba(255, 255, 255, 0.1); color: #FAFAFA; }
-[data-theme="dark"] .project-page .bg-white\/50:hover { background-color: rgba(255, 255, 255, 0.2); }
-
 
 /* --- Typography & Utilities --- */
 .font-geist { font-family: 'Geist', sans-serif; }
-.font-redaction { font-family: 'Redaction 10', sans-serif; }
+.font-gloock { font-family: 'Gloock', serif; }
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-}
-.animate-on-load {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .grayscale { filter: grayscale(100%); }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -95,64 +28,10 @@ body {
     background-color: transparent;
     border: 1px solid #E4E4E7;
     cursor: pointer;
-    transition: all 0.2s ease;
 }
-[data-theme="dark"] .filter-btn { border: 1px solid #3F3F46; }
 .filter-btn:hover { background-color: #F4F4F5; }
-[data-theme="dark"] .filter-btn:hover { background-color: #27272A; }
 .filter-btn.active {
     background-color: #0C0A09;
     color: #FAFAF9;
     border-color: #0C0A09;
-}
-[data-theme="dark"] .filter-btn.active {
-    background-color: #FAFAFA;
-    color: #18181B;
-    border-color: #FAFAFA;
-}
-
-
-/* --- Theme Switcher --- */
-.theme-toggle {
-    --size: 24px;
-    --animation-duration: 0.5s;
-    background: none;
-    border: none;
-    padding: 0;
-    inline-size: var(--size);
-    block-size: var(--size);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    outline-offset: 5px;
-}
-
-[data-theme="light"] .theme-toggle { --icon-fill: #18181B; --icon-fill-hover: #71717A; }
-[data-theme="dark"] .theme-toggle { --icon-fill: #FAFAFA; --icon-fill-hover: #D4D4D8; }
-.theme-toggle > svg { inline-size: 100%; block-size: 100%; stroke-linecap: round; }
-.sun-and-moon > :is(.moon, .sun, .sun-beams) { transform-origin: center center; }
-.sun-and-moon > :is(.moon, .sun) { fill: var(--icon-fill); }
-.theme-toggle:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) { fill: var(--icon-fill-hover); }
-.sun-and-moon > .sun-beams circle { fill: var(--icon-fill); }
-.theme-toggle:is(:hover, :focus-visible) .sun-beams circle { fill: var(--icon-fill-hover); }
-[data-theme="dark"] .sun { transform: scale(1.75); }
-[data-theme="dark"] .sun-beams { opacity: 0; }
-[data-theme="dark"] .moon > circle { transform: translateX(-7px); }
-
-@supports (cx: 1px) {
-    [data-theme="dark"] .moon > circle { transform: translateX(0); cx: 17; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .sun { transition: transform var(--animation-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-    .sun-beams { transition: transform var(--animation-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity var(--animation-duration) ease; }
-    [data-theme="dark"] .sun { transition-timing-function: ease; transition-duration: calc(var(--animation-duration) * 0.5); }
-    [data-theme="dark"] .sun-beams { transform: rotateZ(-25deg); transition-duration: calc(var(--animation-duration) * 0.3); }
-    .moon > circle { transition: transform calc(var(--animation-duration) * 0.5) cubic-bezier(0, 0, 0.2, 1); }
-    @supports (cx: 1px) {
-        .moon > circle { transition: cx calc(var(--animation-duration) * 0.5) cubic-bezier(0, 0, 0.2, 1); }
-    }
-    [data-theme="dark"] .moon > circle { transition-delay: calc(var(--animation-duration) * 0.5); transition-duration: var(--animation-duration); }
 }
