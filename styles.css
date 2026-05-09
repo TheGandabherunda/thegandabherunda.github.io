@@ -9,6 +9,10 @@
     color: #fff;
 }
 
+html {
+    background-color: #FAFAF9; /* Matches top of page */
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -218,6 +222,15 @@ img {
     width: 240px;
     height: 240px;
     opacity: 0; /* Hide until GSAP starts */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-page-logo-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .preloader-logo {
@@ -285,7 +298,7 @@ img {
 }
 
 /* Flashlight radial glow effect that sits on top of the logo */
-.logo-container::after {
+.logo-container:not(.preloader-logo-wrapper)::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -481,88 +494,119 @@ img {
 
 /* Footer */
 .footer {
-    padding: 2rem;
+    padding: 6rem 2rem; /* Mobile-first: standard horizontal padding */
+    background-color: #000;
+    color: #FAFAF9;
     opacity: 0; /* Coordinated reveal */
     transform: translateY(20px);
+    position: relative;
+    /* Create a massive black shadow that extends downwards */
+    box-shadow: 0 0 0 200vh #000;
+    /* Clip the shadow so it only shows below the top edge of the footer */
+    clip-path: inset(0 -100vw -200vh -100vw);
+}
+
+@media (min-width: 768px) {
+    .footer {
+        padding: 6rem 8rem; /* Desktop: Generous horizontal padding to pull content in */
+    }
+}
+
+.footer-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+}
+
+@media (min-width: 768px) {
+    .footer-content-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.footer-logo-link {
+    width: 180px; /* Bolder logo presence */
+    height: 180px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.footer-logo {
+    width: 100%;
+    height: 100%;
+}
+
+.footer-divider-symbol {
+    display: none;
+    font-size: 24px;
+    color: #FAFAF9;
+    opacity: 0.2; /* Subtle decorative presence */
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .footer-divider-symbol {
+        display: block;
+    }
 }
 
 .footer-links-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    color: #6b7280;
+    justify-content: flex-end;
+    color: #a1a1aa; /* Muted Zinc color */
     text-align: center;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 @media (min-width: 768px) {
-    .footer-links-container { flex-direction: row; text-align: left; gap: 0; }
+    .footer-links-container {
+        flex-direction: row;
+        text-align: left;
+        gap: 6rem;
+    }
 }
 
 .footer-column-title {
+    font-family: 'Gloock', serif;
     font-weight: 500;
-    color: #000;
-    margin-bottom: 1rem;
-    font-size: 20px;
+    color: #FAFAF9;
+    margin-bottom: 1.5rem;
+    font-size: 16px; /* Reduced further from 18px */
 }
 
 .footer-list {
-    font-size: 20px;
+    font-size: 14px; /* Reduced further from 16px */
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .footer-link {
     display: inline-flex;
     align-items: center;
-    position: relative;
-    transition: color 0.2s ease;
+    padding: 0px 8px; /* Reduced vertical padding to 0 for a tighter hover box */
+    margin: 0px -8px; /* Adjusted margin to match new padding */
 }
-
-.footer-link:hover { color: #000; }
 
 .footer-link .material-symbols-outlined {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1;
-    position: absolute;
-    left: 100%;
-    margin-left: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    margin-left: 0.4rem;
+    opacity: 0.3; /* Subtle static opacity */
 }
 
-.footer-link:hover .material-symbols-outlined { opacity: 1; }
-
-.footer-bottom {
-    margin-top: 4rem;
-    color: #6b7280;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    gap: 1rem;
+/* Magnet Mode for Cursor */
+.custom-cursor.magnet-mode {
+    border-radius: 0;
+    mix-blend-mode: difference;
 }
 
-@media (min-width: 768px) {
-    .footer-bottom { flex-direction: row; gap: 0; }
-}
 
-.footer-bottom-text { margin-bottom: 1rem; }
-@media (min-width: 768px) { .footer-bottom-text { margin-bottom: 0; } }
 
-.footer-bottom-right {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 1rem;
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .footer-bottom-right { justify-content: flex-end; text-align: right; }
-}
 
 /* --- Project Pages (Morse, NimFile, etc.) --- */
 .project-page-main {
@@ -572,13 +616,23 @@ img {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem;
+    padding: 6rem 2rem; /* Changed from padding: 2rem to ensure layout stability */
 }
 
 .project-page-logo {
     width: 12rem;
     height: 12rem;
     margin: 0 auto;
+    object-fit: contain; /* Ensure SVG fits perfectly */
+    display: block;
+}
+
+/* Ensure the container has fixed dimensions to prevent layout shifts */
+.project-logo-fixed-container {
+    width: 12rem;
+    height: 12rem;
+    margin: 0 auto;
+    display: block;
 }
 
 .project-page-title {

@@ -26,22 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.scrollRestoration = 'manual';
     }
 
-    // 1. Time Updater (Footer)
-    const timeElement = document.getElementById('time');
-    if (timeElement) {
-        function updateTime() {
-            const now = new Date();
-            const options = {
-                timeZone: 'Asia/Kolkata',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            };
-            timeElement.textContent = now.toLocaleTimeString('en-US', options);
-        }
-        updateTime();
-        setInterval(updateTime, 60000);
-    }
+
 
     // 2. Advanced Metal & Light Logo Effect
     class LogoEffect {
@@ -171,9 +156,21 @@ document.addEventListener('DOMContentLoaded', () => {
         shadowFilterId: 'preloader-dynamic-shadow'
     });
 
+    // Initialize Footer Logo Effect
+    new LogoEffect({
+        containerId: 'footer-logo-link',
+        lightSourceId: 'footer-light-source',
+        diffuseSourceId: 'footer-diffuse-source',
+        diffuseFilterId: 'footer-diffuse-filter',
+        specularFilterId: 'footer-specular-filter',
+        shadowFilterId: 'footer-dynamic-shadow'
+    });
+
     // 4. Preloader Lifecycle & Seamless Transition
     const preloader = document.getElementById('preloader');
     const mainLogoLink = document.getElementById('main-logo-link');
+    const projectTargetLogo = document.querySelector('.project-page-logo'); // For project pages
+    const genericTargetLogo = document.getElementById('target-logo'); // For About/Privacy
 
     if (preloader) {
         const tl = gsap.timeline();
@@ -201,29 +198,52 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. SEAMLESS MOVE: Transition preloader logo to hero position
         // Calculate exact center-to-center deltas for pixel-perfect landing
         const preWrapper = document.querySelector('.preloader-logo-wrapper');
-        const targetRect = mainLogoLink.getBoundingClientRect();
-        const currentRect = preWrapper.getBoundingClientRect();
+        const targetElement = mainLogoLink || projectTargetLogo || genericTargetLogo;
 
-        const moveX = (targetRect.left + targetRect.width / 2) - (currentRect.left + currentRect.width / 2);
-        const moveY = (targetRect.top + targetRect.height / 2) - (currentRect.top + currentRect.height / 2);
+        if (targetElement) {
+            // Force temporary visibility and reset transforms to get TRUE final coordinates
+            const originalOpacity = targetElement.style.opacity;
+            const originalVisibility = targetElement.style.visibility;
+            const parentElement = targetElement.closest('.project-page-main, .privacy-main, .hero-section');
+            const parentTransform = parentElement ? parentElement.style.transform : null;
 
-        // UNLOCK positioning so it can scroll during movement
-        tl.set(preloader, { position: 'absolute' }, "-=0.5");
+            // Prepare target for measurement - Ensure it's part of layout but invisible
+            gsap.set(targetElement, { opacity: 0, visibility: 'visible', clearProps: "transform" });
+            if (parentElement) gsap.set(parentElement, { clearProps: "transform", opacity: 1, visibility: 'visible' });
 
-        // 3a. Show Scroll Bar early (as logo starts moving)
-        tl.to('.scroll-progress-container', {
-            opacity: 1,
-            duration: 0.5
-        }, "-=0.5");
+            const targetRect = targetElement.getBoundingClientRect();
+            const currentRect = preWrapper.getBoundingClientRect();
 
-        tl.to(preWrapper, {
-            x: moveX,
-            y: moveY,
-            width: 160,
-            height: 160,
-            duration: 1.2,
-            ease: "power3.inOut"
-        }, "<");
+            const moveX = (targetRect.left + targetRect.width / 2) - (currentRect.left + currentRect.width / 2);
+            const moveY = (targetRect.top + targetRect.height / 2) - (currentRect.top + currentRect.height / 2);
+
+            // Restore original state for measurement purposes
+            gsap.set(targetElement, { opacity: originalOpacity, visibility: originalVisibility || 'hidden' });
+            if (parentElement) {
+                if (parentTransform) gsap.set(parentElement, { transform: parentTransform });
+                // Only set opacity: 0 for project pages where we do a simple fade-in.
+                // The Hero Section on index page should remain part of its existing TL reveal.
+                if (!mainLogoLink) gsap.set(parentElement, { opacity: 0 });
+            }
+
+            // UNLOCK positioning so it can scroll during movement
+            tl.set(preloader, { position: 'absolute' }, "-=0.5");
+
+            // 3a. Show Scroll Bar early (as logo starts moving)
+            tl.to('.scroll-progress-container', {
+                opacity: 1,
+                duration: 0.5
+            }, "-=0.5");
+
+            tl.to(preWrapper, {
+                x: moveX,
+                y: moveY,
+                width: targetRect.width,
+                height: targetRect.height,
+                duration: 1.2,
+                ease: "power3.inOut"
+            }, "<");
+        }
 
         // Clear preloader background
         tl.to(preloader, {
@@ -233,32 +253,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // INSTANT HAND-OFF: Remove fixed preloader as soon as logo arrives
         tl.add(() => {
-            preloader.remove();
-            gsap.set(mainLogoLink, { opacity: 1 });
+            if (targetElement) {
+                gsap.set(targetElement, { opacity: 1, visibility: 'visible' });
+            }
+            if (preloader) preloader.remove();
         });
 
-        // 4. Reveal Home Screen Content (Now part of normal scrollable page)
-        tl.to('.hero-title', {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "power2.out"
-        }, "-=0.6");
+        // 4. Reveal Screen Content
+        if (mainLogoLink) {
+            // Index Page Reveal - FORCE OPACITY
+            tl.to('.hero-section', { opacity: 1, duration: 0.1 }, "-=0.1");
 
-        tl.to('.hero-marquee-wrapper, .hero-subtitle', {
-            opacity: 1,
-            duration: 1.2,
-            ease: "power2.out"
-        }, "<");
+            tl.to('.hero-title', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "-=0.6");
 
-        // 5. Cascading Reveal of other sections
-        tl.to('.projects-section, .thank-you-section, .footer', {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            stagger: 0.3,
-            ease: "power2.out"
-        }, "-=0.4");
+            tl.to('.hero-marquee-wrapper, .hero-subtitle', {
+                opacity: 1,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "<");
+
+            tl.to('.projects-section, .thank-you-section, .footer', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                stagger: 0.3,
+                ease: "power2.out"
+            }, "-=0.4");
+        } else {
+            // Project Page/Standard Page Reveal
+            tl.to('.project-page-main, .privacy-main, .about-main', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "-=0.6");
+
+            // Standard Footer reveal if exists
+            tl.to('.footer', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "-=0.4");
+        }
     }
 
     // 5. Scroll Progress Bar
@@ -290,9 +332,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Custom Cursor Logic
     const cursor = document.getElementById('custom-cursor');
+    let isMagnetMode = false;
+
     if (cursor) {
         // Track mouse movement
         window.addEventListener('mousemove', (e) => {
+            if (isMagnetMode) return; // Don't follow mouse in magnet mode
+
+            // Using GSAP for ultra-smooth tracking
             gsap.to(cursor, {
                 x: e.clientX,
                 y: e.clientY,
@@ -302,14 +349,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Add hover effect for clickable items
-        const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .nav-arrow-btn');
+        const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .project-tile, .nav-arrow-btn');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                if (el.classList.contains('project-tile')) {
+                if (el.classList.contains('footer-link')) {
+                    isMagnetMode = true;
+                    cursor.classList.add('magnet-mode');
+                    const rect = el.getBoundingClientRect();
+                    gsap.to(cursor, {
+                        x: rect.left + rect.width / 2,
+                        y: rect.top + rect.height / 2,
+                        width: rect.width,
+                        height: rect.height,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                } else if (el.classList.contains('project-tile')) {
                     cursor.classList.add('project-hover');
                     gsap.to(cursor, {
                         width: 52,
-                        height: 19, // Adjusted to 19px for a bit more top breathing room
+                        height: 19,
                         duration: 0.3,
                         ease: "power2.out"
                     });
@@ -317,9 +376,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     cursor.classList.add('hover');
                 }
             });
+
             el.addEventListener('mouseleave', () => {
+                isMagnetMode = false;
                 cursor.classList.remove('hover');
                 cursor.classList.remove('project-hover');
+                cursor.classList.remove('magnet-mode');
 
                 // Only reset if not moving into text-mode (which handles its own reset)
                 if (!cursor.classList.contains('text-mode')) {
@@ -359,12 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // 6a. Dynamic Text Adaptation
-        // Select text-only elements (excluding links/buttons which have their own hover logic)
         const textElements = document.querySelectorAll('p, h1, h2, h3, h4, li, span');
-
         textElements.forEach(el => {
-            // Check if it's inside a link or button to avoid double-hover effects
-            // AND skip project card text entirely as requested (keep VIEW cursor)
             if (el.closest('a') || el.closest('button') || el.closest('.filter-btn')) return;
 
             el.addEventListener('mouseenter', () => {
