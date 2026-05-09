@@ -63,20 +63,50 @@ img {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-top: 0;
 }
 
-.hero-logo-link {
-    margin-bottom: 24px;
-    cursor: pointer;
+.logo-container {
+    position: relative;
     display: inline-block;
+    --light-x: 50%;
+    --light-y: 50%;
+    --glow-opacity: 0;
+}
+
+/* Flashlight radial glow effect that sits on top of the logo */
+.logo-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle 140px at var(--light-x) var(--light-y),
+        rgba(255, 215, 0, 0.35) 0%, /* Soft Golden Yellow */
+        rgba(255, 215, 0, 0) 100%
+    );
+    opacity: var(--glow-opacity);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    /* Clip the glow to the logo shape only */
+    -webkit-mask-image: url('assets/logo.svg');
+    mask-image: url('assets/logo.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
 }
 
 .hero-logo {
-    width: 230px;
-    height: 230px;
+    width: 160px;
+    height: 160px;
+    display: block;
 }
+
 
 .hero-text-container {
     max-width: 36rem;
