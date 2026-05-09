@@ -1,6 +1,31 @@
 // --- DOM Content Loaded Logic ---
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0. Smooth Scroll (Lenis)
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // 0a. Reset Scroll to Top on Load
+    lenis.scrollTo(0, { immediate: true });
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
     // 1. Time Updater (Footer)
     const timeElement = document.getElementById('time');
     if (timeElement) {
@@ -18,79 +43,25 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateTime, 60000);
     }
 
-    // 2. Project Scroll & Filter Logic (Index Page)
-    const scrollContainer = document.getElementById('projects-scroll-container');
-    const leftBtn = document.getElementById('scroll-left-btn');
-    const rightBtn = document.getElementById('scroll-right-btn');
-    const filterButtonsContainer = document.getElementById('filter-buttons');
-    const projectTiles = document.querySelectorAll('.project-tile');
-
-    const updateButtonState = () => {
-        if (!scrollContainer || !leftBtn || !rightBtn) return;
-        const tolerance = 1;
-        leftBtn.disabled = scrollContainer.scrollLeft <= 0;
-        rightBtn.disabled = scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth - tolerance;
-    };
-
-    if (scrollContainer && leftBtn && rightBtn) {
-        const scrollAmount = 384 + 32; // w-96 (384px) + gap-8 (32px)
-        rightBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: scrollAmount, behavior: 'auto' });
-        });
-        leftBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'auto' });
-        });
-        scrollContainer.addEventListener('scroll', updateButtonState);
-        window.addEventListener('resize', updateButtonState);
-        updateButtonState();
-    }
-
-    if (filterButtonsContainer && projectTiles.length > 0) {
-        filterButtonsContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.filter-btn');
-            if (button) {
-                const filter = button.dataset.filter;
-
-                const activeBtn = filterButtonsContainer.querySelector('.active');
-                if (activeBtn) activeBtn.classList.remove('active');
-                button.classList.add('active');
-
-                projectTiles.forEach(tile => {
-                    const category = tile.dataset.category;
-                    if (filter === 'all' || filter === category) {
-                        tile.classList.remove('hidden');
-                    } else {
-                        tile.classList.add('hidden');
-                    }
-                });
-
-                if (scrollContainer) {
-                   scrollContainer.scrollLeft = 0;
-                   updateButtonState();
-                }
-            }
-        });
-    }
-
-    // 3. Advanced Metal & Light Logo Effect
+    // 2. Advanced Metal & Light Logo Effect
     class LogoEffect {
-        constructor(containerId) {
-            this.container = document.getElementById(containerId);
+        constructor(config) {
+            this.container = document.getElementById(config.containerId);
             if (!this.container) return;
 
-            this.lightSource = document.getElementById('light-source');
-            this.diffuseSource = document.getElementById('diffuse-source');
-            this.diffuseFilter = document.getElementById('diffuse-filter');
-            this.specularFilter = document.getElementById('specular-filter');
-            this.shadowFilter = document.getElementById('dynamic-shadow');
+            this.lightSource = document.getElementById(config.lightSourceId);
+            this.diffuseSource = document.getElementById(config.diffuseSourceId);
+            this.diffuseFilter = document.getElementById(config.diffuseFilterId);
+            this.specularFilter = document.getElementById(config.specularFilterId);
+            this.shadowFilter = document.getElementById(config.shadowFilterId);
 
             // SVG ViewBox dimensions
-            this.vbWidth = 1038;
-            this.vbHeight = 762;
+            this.vbWidth = config.vbWidth || 1038;
+            this.vbHeight = config.vbHeight || 762;
 
             // Base intensities
-            this.baseDiffuse = 1.2;
-            this.baseSpecular = 2.5;
+            this.baseDiffuse = config.baseDiffuse || 1.2;
+            this.baseSpecular = config.baseSpecular || 2.5;
 
             this.init();
         }
@@ -180,6 +151,248 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize the logo effect
-    new LogoEffect('main-logo-link');
+    // Initialize Hero Logo Effect
+    new LogoEffect({
+        containerId: 'main-logo-link',
+        lightSourceId: 'light-source',
+        diffuseSourceId: 'diffuse-source',
+        diffuseFilterId: 'diffuse-filter',
+        specularFilterId: 'specular-filter',
+        shadowFilterId: 'dynamic-shadow'
+    });
+
+    // Initialize Preloader Logo Effect
+    new LogoEffect({
+        containerId: 'preloader-logo-container',
+        lightSourceId: 'preloader-light-source',
+        diffuseSourceId: 'preloader-diffuse-source',
+        diffuseFilterId: 'preloader-diffuse-filter',
+        specularFilterId: 'preloader-specular-filter',
+        shadowFilterId: 'preloader-dynamic-shadow'
+    });
+
+    // 4. Preloader Lifecycle & Seamless Transition
+    const preloader = document.getElementById('preloader');
+    const mainLogoLink = document.getElementById('main-logo-link');
+
+    if (preloader) {
+        const tl = gsap.timeline();
+
+        // 1. Logo Scale Down - Smooth snap
+        tl.fromTo('.preloader-logo-wrapper',
+            { scale: 5, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 1.2, ease: "expo.out" }
+        );
+
+        // 2. Crossover Text (Behind Logo) - Start INSTANTLY, move elegantly
+        tl.set('.preloader-word', { opacity: 1 }, 0);
+        tl.fromTo('.preloader-row-1 .preloader-word',
+            { x: '150vw' },
+            { x: '-150vw', duration: 2.2, ease: "power2.inOut" },
+            0
+        );
+
+        tl.fromTo('.preloader-row-2 .preloader-word',
+            { x: '-150vw' },
+            { x: '150vw', duration: 2.2, ease: "power2.inOut" },
+            0
+        );
+
+        // 3. SEAMLESS MOVE: Transition preloader logo to hero position
+        // Calculate exact center-to-center deltas for pixel-perfect landing
+        const preWrapper = document.querySelector('.preloader-logo-wrapper');
+        const targetRect = mainLogoLink.getBoundingClientRect();
+        const currentRect = preWrapper.getBoundingClientRect();
+
+        const moveX = (targetRect.left + targetRect.width / 2) - (currentRect.left + currentRect.width / 2);
+        const moveY = (targetRect.top + targetRect.height / 2) - (currentRect.top + currentRect.height / 2);
+
+        // UNLOCK positioning so it can scroll during movement
+        tl.set(preloader, { position: 'absolute' }, "-=0.5");
+
+        // 3a. Show Scroll Bar early (as logo starts moving)
+        tl.to('.scroll-progress-container', {
+            opacity: 1,
+            duration: 0.5
+        }, "-=0.5");
+
+        tl.to(preWrapper, {
+            x: moveX,
+            y: moveY,
+            width: 160,
+            height: 160,
+            duration: 1.2,
+            ease: "power3.inOut"
+        }, "<");
+
+        // Clear preloader background
+        tl.to(preloader, {
+            backgroundColor: 'transparent',
+            duration: 1.2
+        }, "<");
+
+        // INSTANT HAND-OFF: Remove fixed preloader as soon as logo arrives
+        tl.add(() => {
+            preloader.remove();
+            gsap.set(mainLogoLink, { opacity: 1 });
+        });
+
+        // 4. Reveal Home Screen Content (Now part of normal scrollable page)
+        tl.to('.hero-title', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        }, "-=0.6");
+
+        tl.to('.hero-marquee-wrapper, .hero-subtitle', {
+            opacity: 1,
+            duration: 1.2,
+            ease: "power2.out"
+        }, "<");
+
+        // 5. Cascading Reveal of other sections
+        tl.to('.projects-section, .thank-you-section, .footer', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            stagger: 0.3,
+            ease: "power2.out"
+        }, "-=0.4");
+    }
+
+    // 5. Scroll Progress Bar
+    const progressBar = document.getElementById('scroll-progress-bar');
+    if (progressBar) {
+        const updateProgressBar = (instant = false) => {
+            const winScroll = lenis.scroll; // Use lenis scroll position
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+
+            if (instant) {
+                gsap.set(progressBar, { height: scrolled + "%" });
+            } else {
+                gsap.to(progressBar, {
+                    height: scrolled + "%",
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.8)",
+                    overwrite: "auto"
+                });
+            }
+        };
+
+        // Use Lenis scroll event for better sync
+        lenis.on('scroll', () => updateProgressBar());
+
+        // Initial call to set state
+        updateProgressBar(true);
+    }
+
+    // 6. Custom Cursor Logic
+    const cursor = document.getElementById('custom-cursor');
+    if (cursor) {
+        // Track mouse movement
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1,
+                ease: "power2.out"
+            });
+        });
+
+        // Add hover effect for clickable items
+        const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .nav-arrow-btn');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (el.classList.contains('project-tile')) {
+                    cursor.classList.add('project-hover');
+                    gsap.to(cursor, {
+                        width: 52,
+                        height: 19, // Adjusted to 19px for a bit more top breathing room
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                } else {
+                    cursor.classList.add('hover');
+                }
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursor.classList.remove('project-hover');
+
+                // Only reset if not moving into text-mode (which handles its own reset)
+                if (!cursor.classList.contains('text-mode')) {
+                    gsap.to(cursor, {
+                        width: 16,
+                        height: 16,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+
+        // Hide cursor when it leaves the window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+        });
+
+        // 6b. Click Animation (Scale down on click)
+        window.addEventListener('mousedown', () => {
+            gsap.to(cursor, {
+                scale: 0.7,
+                duration: 0.2,
+                ease: "power2.out"
+            });
+        });
+
+        window.addEventListener('mouseup', () => {
+            gsap.to(cursor, {
+                scale: 1,
+                duration: 0.2,
+                ease: "power2.out"
+            });
+        });
+
+        // 6a. Dynamic Text Adaptation
+        // Select text-only elements (excluding links/buttons which have their own hover logic)
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, li, span');
+
+        textElements.forEach(el => {
+            // Check if it's inside a link or button to avoid double-hover effects
+            // AND skip project card text entirely as requested (keep VIEW cursor)
+            if (el.closest('a') || el.closest('button') || el.closest('.filter-btn')) return;
+
+            el.addEventListener('mouseenter', () => {
+                const style = window.getComputedStyle(el);
+                const fontSize = parseFloat(style.fontSize);
+                const lineHeight = parseFloat(style.lineHeight) || fontSize * 1.2;
+                const targetHeight = Math.max(fontSize, lineHeight);
+
+                cursor.classList.add('text-mode');
+
+                gsap.to(cursor, {
+                    width: 2,
+                    height: targetHeight,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('text-mode');
+
+                gsap.to(cursor, {
+                    width: 16,
+                    height: 16,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+    }
 });
