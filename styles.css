@@ -730,6 +730,12 @@ img {
     display: block;
 }
 
+.privacy-logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .privacy-title {
     font-family: 'Gloock', serif;
     font-size: 60px;

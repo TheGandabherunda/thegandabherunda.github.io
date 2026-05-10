@@ -169,11 +169,21 @@ document.addEventListener('DOMContentLoaded', () => {
         shadowFilterId: 'footer-dynamic-shadow'
     });
 
+    // Initialize Page Content Logo Effect (About/Terms/Privacy)
+    new LogoEffect({
+        containerId: 'target-logo-link',
+        lightSourceId: 'page-light-source',
+        diffuseSourceId: 'page-diffuse-source',
+        diffuseFilterId: 'page-diffuse-filter',
+        specularFilterId: 'page-specular-filter',
+        shadowFilterId: 'page-dynamic-shadow'
+    });
+
     // 4. Preloader Lifecycle & Seamless Transition
     const preloader = document.getElementById('preloader');
     const mainLogoLink = document.getElementById('main-logo-link');
     const projectTargetLogo = document.querySelector('.project-page-logo'); // For project pages
-    const genericTargetLogo = document.getElementById('target-logo'); // For About/Privacy
+    const genericTargetLogo = document.getElementById('target-logo-link'); // For About/Privacy
 
     if (preloader) {
         const tl = gsap.timeline();
