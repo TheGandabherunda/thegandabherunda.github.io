@@ -61,7 +61,7 @@
                         <fePointLight id="preloader-diffuse-source" x="519" y="381" z="70" />
                     </feDiffuseLighting>
                     <feSpecularLighting id="preloader-specular-filter" in="SourceAlpha" surfaceScale="60" specularConstant="2.8" specularExponent="50" lighting-color="#FFD700" result="specular">
-                        <fePointLight id="footer-light-source" x="519" y="381" z="70" />
+                        <fePointLight id="preloader-light-source" x="519" y="381" z="70" />
                     </feSpecularLighting>
                     <feComposite in="ambient" in2="key-diffuse" operator="arithmetic" k2="1" k3="1" result="total-diffuse" />
                     <feComposite operator="arithmetic" k1="1" in="total-diffuse" in2="SourceGraphic" result="shaded"/>
