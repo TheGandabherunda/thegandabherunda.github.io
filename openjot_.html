@@ -13,6 +13,7 @@
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script src="scripts.js"></script>
 </head>
@@ -60,10 +61,81 @@
     <p class="project-page-desc">
         A minimal and open-source journaling app designed for privacy and simplicity. All your thoughts are stored securely on your device, never in the cloud.
     </p>
+
+    <!-- Stats -->
+    <div class="project-stats-container" data-repo="TheGandabherunda/OpenJot" data-izzy="org.thegandabherunda.openjot">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="material-symbols-rounded">download</span>
+                <span class="stat-value" data-stat="downloads">...</span>
+            </div>
+            <div class="stat-label">Downloads</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="material-symbols-rounded">star</span>
+                <span class="stat-value" data-stat="stars">...</span>
+            </div>
+            <div class="stat-label">Stars</div>
+        </div>
+    </div>
+
     <div class="project-actions">
         <a href="https://github.com/TheGandabherunda/OpenJot/releases" target="_blank" class="btn btn-primary">Download APK</a>
         <a href="https://github.com/TheGandabherunda/OpenJot" target="_blank" class="btn btn-secondary">View on GitHub</a>
     </div>
+
+    <!-- Screenshots -->
+    <section class="project-screenshots-section">
+        <h2 class="screenshots-title">Screenshots</h2>
+        <div class="screenshots-scroll">
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/1.png" alt="OpenJot Screenshot 1" class="screenshot-img"></div>
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/2.png" alt="OpenJot Screenshot 2" class="screenshot-img"></div>
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/3.png" alt="OpenJot Screenshot 3" class="screenshot-img"></div>
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/4.png" alt="OpenJot Screenshot 4" class="screenshot-img"></div>
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/5.png" alt="OpenJot Screenshot 5" class="screenshot-img"></div>
+            <div class="screenshot-item"><img src="https://raw.githubusercontent.com/TheGandabherunda/OpenJot/main/screenshots/6.png" alt="OpenJot Screenshot 6" class="screenshot-img"></div>
+        </div>
+        <div class="screenshots-navigation">
+            <button class="nav-btn prev-btn" aria-label="Previous">
+                <span class="material-symbols-rounded">arrow_back</span>
+            </button>
+            <button class="nav-btn next-btn" aria-label="Next">
+                <span class="material-symbols-rounded">arrow_forward</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="project-features-section">
+        <h2 class="features-title">Features</h2>
+        <div class="features-container">
+            <div class="features-list">
+                <div class="feature-nav-item active" data-feature="1">Rich Text Editor</div>
+                <div class="feature-nav-item" data-feature="2">Media Attachments</div>
+                <div class="feature-nav-item" data-feature="3">Location Tagging</div>
+                <div class="feature-nav-item" data-feature="4">Secure & Private</div>
+            </div>
+            <div class="feature-display-area">
+                <div class="feature-content-item active" data-feature="1">
+                    <div class="feature-display-icon"><span class="material-symbols-rounded">edit_note</span></div>
+                    <p class="feature-display-desc">Create beautifully formatted journal entries with a powerful built-in editor that supports diverse styles.</p>
+                </div>
+                <div class="feature-content-item" data-feature="2">
+                    <div class="feature-display-icon"><span class="material-symbols-rounded">attach_file</span></div>
+                    <p class="feature-display-desc">Add images, videos, and audio recordings to your entries to preserve every detail of your memories.</p>
+                </div>
+                <div class="feature-content-item" data-feature="3">
+                    <div class="feature-display-icon"><span class="material-symbols-rounded">location_on</span></div>
+                    <p class="feature-display-desc">Keep track of where each memory was created with integrated map support and precise location tagging.</p>
+                </div>
+                <div class="feature-content-item" data-feature="4">
+                    <div class="feature-display-icon"><span class="material-symbols-rounded">security</span></div>
+                    <p class="feature-display-desc">All data stays on your device. Protect your thoughts with optional biometric locks and zero cloud dependency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <!-- Footer -->

@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.0,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         gestureDirection: 'vertical',
         smooth: true,
-        mouseMultiplier: 1,
+        mouseMultiplier: 1.1,
         smoothTouch: false,
         touchMultiplier: 2,
         infinite: false,
@@ -353,6 +353,236 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgressBar(true);
     }
 
+    // --- GitHub Stats Fetching ---
+    async function initProjectStats() {
+        const statsContainers = document.querySelectorAll('.project-stats-container');
+        if (statsContainers.length === 0) return;
+
+        for (const container of statsContainers) {
+            const repo = container.getAttribute('data-repo');
+            if (!repo) continue;
+
+            try {
+                // Fetch Repo Data (Stars)
+                const repoResponse = await fetch(`https://api.github.com/repos/${repo}`);
+                const repoData = await repoResponse.json();
+
+                const starsElement = container.querySelector('[data-stat="stars"]');
+                if (starsElement && repoData.stargazers_count !== undefined) {
+                    starsElement.textContent = repoData.stargazers_count;
+                }
+
+                // Fetch Releases Data (Downloads)
+                const downloadsElement = container.querySelector('[data-stat="downloads"]');
+                if (downloadsElement) {
+                    const releasesResponse = await fetch(`https://api.github.com/repos/${repo}/releases`);
+                    const releasesData = await releasesResponse.json();
+
+                    let totalDownloads = 0;
+                    if (Array.isArray(releasesData)) {
+                        releasesData.forEach(release => {
+                            if (release.assets) {
+                                release.assets.forEach(asset => {
+                                    totalDownloads += asset.download_count;
+                                });
+                            }
+                        });
+                    }
+
+                    // IzzyOnDroid Support (via multiple CORS Proxies for robustness)
+                    const izzyPkg = container.getAttribute('data-izzy');
+                    if (izzyPkg) {
+                        const proxies = [
+                            url => `https://api.codetabs.com/v1/proxy?quest=${url}`,
+                            url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
+                        ];
+
+                        const izzyTarget = `https://dlstats.izzyondroid.org/iod-stats-collector/stats/basic/yearly/rolling.json`;
+                        let fetched = false;
+
+                        for (const proxy of proxies) {
+                            if (fetched) break;
+                            try {
+                                const proxyUrl = proxy(izzyTarget);
+                                const response = await fetch(proxyUrl);
+                                if (!response.ok) continue;
+
+                                let data;
+                                if (proxyUrl.includes('allorigins')) {
+                                    const json = await response.json();
+                                    data = JSON.parse(json.contents);
+                                } else {
+                                    data = await response.json();
+                                }
+
+                                if (data && data[izzyPkg]) {
+                                    totalDownloads += parseInt(data[izzyPkg]);
+                                    fetched = true;
+                                }
+                            } catch (e) {
+                                console.warn(`Proxy failed:`, e);
+                            }
+                        }
+                    }
+
+                    downloadsElement.textContent = totalDownloads > 1000 ? (totalDownloads / 1000).toFixed(1) + 'k' : totalDownloads;
+                }
+            } catch (error) {
+                console.error("Error fetching GitHub stats:", error);
+            }
+        }
+    }
+
+    // Initialize stats if on a project page
+    if (document.body.classList.contains('project-page')) {
+        initProjectStats();
+    }
+
+    // --- Screenshots Gallery Interaction (GSAP Powered) ---
+    function initScreenshotGalleries() {
+        const galleries = document.querySelectorAll('.project-screenshots-section');
+
+        galleries.forEach(gallery => {
+            const scrollContainer = gallery.querySelector('.screenshots-scroll');
+            const nav = gallery.querySelector('.screenshots-navigation');
+            const prevBtn = gallery.querySelector('.prev-btn');
+            const nextBtn = gallery.querySelector('.next-btn');
+
+            if (!scrollContainer) return;
+
+            // Update arrow visibility based on scroll position
+            const updateArrows = () => {
+                if (!nav) return;
+                const scrollLeft = scrollContainer.scrollLeft;
+                const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+                nav.classList.add('visible');
+                prevBtn.disabled = scrollLeft <= 1;
+                nextBtn.disabled = scrollLeft >= maxScroll - 1;
+            };
+
+            // Use GSAP for smooth dragging
+            // Create a proxy element to handle the "drag" logic without moving the real scroll container directly via Draggable
+            let proxy = document.createElement("div");
+            let scrollWidth = scrollContainer.scrollWidth;
+            let clientWidth = scrollContainer.clientWidth;
+            let maxScroll = scrollWidth - clientWidth;
+
+            // Re-calculate on resize
+            window.addEventListener('resize', () => {
+                scrollWidth = scrollContainer.scrollWidth;
+                clientWidth = scrollContainer.clientWidth;
+                maxScroll = scrollWidth - clientWidth;
+                updateArrows();
+            });
+
+            // Create the draggable instance
+            Draggable.create(proxy, {
+                type: "x",
+                trigger: scrollContainer,
+                inertia: true,
+                bounds: { minX: -maxScroll, maxX: 0 },
+                edgeResistance: 0.65,
+                onPress() {
+                    // Sync proxy position with current scroll
+                    this.startX = scrollContainer.scrollLeft;
+                    gsap.killTweensOf(scrollContainer);
+                    gsap.set(this.target, {x: -this.startX});
+                },
+                onDrag() {
+                    scrollContainer.scrollLeft = -this.x;
+                    updateArrows();
+                },
+                onThrowUpdate() {
+                    scrollContainer.scrollLeft = -this.x;
+                    updateArrows();
+                },
+                onThrowComplete() {
+                    updateArrows();
+                }
+            });
+
+            // Navigation Arrows
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    gsap.to(scrollContainer, {
+                        scrollLeft: "-=300",
+                        duration: 0.8,
+                        ease: "power2.out",
+                        onUpdate: updateArrows
+                    });
+                });
+                nextBtn.addEventListener('click', () => {
+                    gsap.to(scrollContainer, {
+                        scrollLeft: "+=300",
+                        duration: 0.8,
+                        ease: "power2.out",
+                        onUpdate: updateArrows
+                    });
+                });
+            }
+
+            scrollContainer.addEventListener('scroll', updateArrows);
+            setTimeout(updateArrows, 500);
+        });
+    }
+
+    if (document.body.classList.contains('project-page')) {
+        // Ensure Draggable is registered
+        if (typeof Draggable !== 'undefined') {
+            gsap.registerPlugin(Draggable);
+            initScreenshotGalleries();
+        } else {
+            console.warn("GSAP Draggable not found. Falling back to manual scroll.");
+        }
+    }
+
+    // --- Features Interaction ---
+    function initFeaturesNav() {
+        const navItems = document.querySelectorAll('.feature-nav-item');
+        const contentItems = document.querySelectorAll('.feature-content-item');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => { // Changed from mouseenter to click
+                const targetId = item.getAttribute('data-feature');
+
+                if (item.classList.contains('active')) return;
+
+                // Update nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                // Update content items
+                contentItems.forEach(content => {
+                    const contentId = content.getAttribute('data-feature');
+
+                    if (contentId === targetId) {
+                        // Animate in new target
+                        content.classList.add('active');
+                        gsap.fromTo(content,
+                            { opacity: 0, y: -10 },
+                            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+                        );
+                    } else if (content.classList.contains('active')) {
+                        // Animate out current active
+                        gsap.to(content, {
+                            opacity: 0,
+                            y: 10,
+                            duration: 0.2,
+                            onComplete: () => {
+                                content.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    }
+
+    if (document.body.classList.contains('project-page')) {
+        initFeaturesNav();
+    }
+
     // 6. Custom Cursor Logic
     const cursor = document.getElementById('custom-cursor');
     let isMagnetMode = false;
@@ -366,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.to(cursor, {
                 x: e.clientX,
                 y: e.clientY,
-                duration: 0.1,
+                duration: 0.07,
                 ease: "power2.out"
             });
         });

@@ -714,7 +714,286 @@ img {
     transform: scale(1.1);
 }
 
+/* --- Project Detail Enhancements --- */
+
+/* Stats Section */
+.project-stats-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    padding: 1rem;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #000;
+}
+
+.stat-header .material-symbols-rounded {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+}
+
+.stat-label {
+    font-size: 0.75rem; /* Reduced from 0.875rem */
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem; /* Tighter spacing */
+}
+
+/* Screenshots Gallery */
+.project-screenshots-section {
+    width: 100%;
+    margin-top: 6rem;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.screenshots-title {
+    font-family: 'Gloock', serif;
+    font-size: 2.5rem;
+    font-weight: 400; /* Set to regular */
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.screenshots-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem;
+    padding: 1rem 2rem 2rem;
+    scrollbar-width: none; /* Firefox */
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-overflow-scrolling: touch;
+    /* Remove scroll-behavior: smooth during dragging to prevent conflicts */
+}
+
+.screenshots-scroll.active {
+    cursor: grabbing;
+}
+
+/* Prevent image ghosting/selection during drag */
+.screenshot-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none; /* Critical: prevents image from being dragged as a ghost */
+    -webkit-user-drag: none;
+}
+
+.screenshots-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.screenshots-navigation.visible {
+    opacity: 1;
+}
+
+.nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: #000;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.nav-btn .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.screenshot-item {
+    flex: 0 0 auto;
+    width: 260px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.screenshot-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Redesigned Features Section */
+.project-features-section {
+    max-width: 1200px;
+    margin: 8rem auto;
+    padding: 0 2rem;
+}
+
+.features-title {
+    font-family: 'Gloock', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Give more space to the display area (right side) */
+    gap: 4rem;
+    align-items: start;
+    margin-top: 4rem;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced spacing between headings */
+}
+
+.feature-nav-item {
+    font-family: 'Inter', sans-serif; /* Switched from Gloock to Inter */
+    font-size: 1.25rem; /* Slightly reduced for Inter */
+    font-weight: 500;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    text-align: left;
+    opacity: 0.6;
+    line-height: 1.4;
+}
+
+.feature-nav-item:hover {
+    color: #000;
+    opacity: 1;
+}
+
+.feature-nav-item.active {
+    color: #000;
+    opacity: 1;
+}
+
+/* Feature Display Area */
+.feature-display-area {
+    position: relative;
+    min-height: 250px;
+    display: block;
+}
+
+.feature-content-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem; /* Increased gap for larger icon */
+    text-align: left;
+    pointer-events: none;
+}
+
+.feature-content-item.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.feature-display-icon {
+    font-size: 7rem; /* Increased from 5rem */
+    color: #000;
+    flex-shrink: 0;
+}
+
+.feature-display-icon .material-symbols-rounded {
+    font-size: 7rem; /* Increased from 5rem */
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}
+
+.feature-display-desc {
+    font-size: 1.1rem;
+    color: #4b5563;
+    line-height: 1.4;
+    max-width: 650px; /* Increased from 500px to allow more horizontal flow */
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .feature-nav-item {
+        font-size: 1.5rem;
+    }
+
+    .feature-display-desc {
+        font-size: 1.25rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .project-page-main {
+        padding: 4rem 1.5rem;
+    }
+
+    .project-stats-container {
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem 1.5rem;
+        min-width: 120px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .screenshot-item {
+        width: 200px;
+    }
+}
+
 /* --- Privacy Policy Page --- */
+
 .privacy-main { padding: 2rem; }
 
 .privacy-section {
