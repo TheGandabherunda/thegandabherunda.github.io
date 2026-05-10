@@ -2,6 +2,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // 0. Smooth Scroll (Lenis)
+    gsap.registerPlugin(ScrollTrigger);
+
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -277,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: "power2.out"
             }, "<");
 
-            tl.to('.projects-section, .thank-you-section, .footer', {
+            tl.to('.projects-section, .thank-you-section', {
                 opacity: 1,
                 y: 0,
                 duration: 1.2,
@@ -292,16 +294,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 duration: 1.2,
                 ease: "power2.out"
             }, "-=0.6");
+        }
+    }
 
-            // Standard Footer reveal if exists
-            tl.to('.footer', {
+    // 4a. Footer Scroll Animation
+    gsap.utils.toArray('.footer').forEach(footer => {
+        gsap.fromTo(footer,
+            { opacity: 0, y: 50 },
+            {
                 opacity: 1,
                 y: 0,
                 duration: 1.2,
-                ease: "power2.out"
-            }, "-=0.4");
-        }
-    }
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: footer,
+                    start: "top bottom-=100px", // Starts when footer is 100px from bottom of viewport
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    });
 
     // 5. Scroll Progress Bar
     const progressBar = document.getElementById('scroll-progress-bar');
