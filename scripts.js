@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(raf);
 
     // 0a. Reset Scroll to Top on Load
+    window.scrollTo(0, 0);
     lenis.scrollTo(0, { immediate: true });
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
