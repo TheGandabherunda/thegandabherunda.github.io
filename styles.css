@@ -1045,4 +1045,84 @@ img {
     margin: 0;
 }
 
-.privacy-back { text-align: center; }
+.privacy-back {
+    text-align: center;
+    margin-top: 6rem;
+}
+
+/* --- Team Section --- */
+.team-section {
+    max-width: 48rem;
+    margin: 4rem auto 0;
+}
+
+.team-heading {
+    font-family: 'Gloock', serif;
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+    .team-grid {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 4rem;
+    }
+
+    .team-member {
+        flex: 1;
+    }
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+@media (min-width: 768px) { .team-member { text-align: left; } }
+
+.member-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #0C0A09;
+}
+
+.github-handle {
+    font-weight: 400;
+    color: #71717a;
+    transition: text-decoration 0.2s ease;
+}
+
+.github-handle:hover {
+    text-decoration: underline;
+}
+
+.member-description {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.desc-text {
+    opacity: 0.6;
+    color: #4b5563;
+}
+
+.member-description .material-symbols-rounded {
+    font-size: 20px;
+    vertical-align: middle;
+    margin: 0 2px;
+    color: #000;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+}
