@@ -583,6 +583,47 @@ document.addEventListener('DOMContentLoaded', () => {
         initFeaturesNav();
     }
 
+    // --- Dynamic Footer Time & Date ---
+    function updateFooterTime() {
+        const timeElement = document.getElementById('footer-time');
+        const dateElement = document.getElementById('footer-date');
+
+        if (!timeElement || !dateElement) return;
+
+        const now = new Date();
+
+        // Format Time: 00:00 AM/PM
+        const timeOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        };
+        const timeString = now.toLocaleTimeString('en-US', timeOptions);
+        timeElement.textContent = timeString;
+
+        // Format Date: 11 May, Monday
+        const dateOptions = {
+            day: 'numeric',
+            month: 'short',
+            weekday: 'long'
+        };
+        const dateString = now.toLocaleDateString('en-US', dateOptions);
+
+        // Standardize format: "11 May, Monday"
+        const parts = dateString.split(' ');
+        // parts usually [Weekday,, Day, Month] or similar depending on locale
+        // We'll use a more direct approach for the exact requested format
+        const day = now.getDate();
+        const month = now.toLocaleDateString('en-US', { month: 'short' });
+        const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+
+        dateElement.textContent = `${day} ${month}, ${weekday}`;
+    }
+
+    // Initial update and interval
+    updateFooterTime();
+    setInterval(updateFooterTime, 60000); // Update every minute
+
     // 6. Custom Cursor Logic
     const cursor = document.getElementById('custom-cursor');
     let isMagnetMode = false;

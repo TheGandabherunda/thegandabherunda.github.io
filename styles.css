@@ -357,7 +357,13 @@ img {
 .hero-subtitle {
     font-size: 20px;
     color: #FAFAF9; /* White-ish text on black bar */
-    padding: 0 1rem;
+}
+
+.marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5rem; /* Consistent space between text and symbol */
+    padding-right: 2.5rem; /* Consistent space after symbol before next item */
 }
 
 .marquee-symbol {
@@ -579,6 +585,21 @@ img {
     color: #FAFAF9;
     margin-bottom: 1.5rem;
     font-size: 16px; /* Reduced further from 18px */
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(250, 250, 249, 0.1);
+    width: 100%;
+    text-align: center;
+}
+
+.footer-dynamic-info {
+    font-size: 14px;
+    color: #a1a1aa;
+    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
 }
 
 .footer-list {
