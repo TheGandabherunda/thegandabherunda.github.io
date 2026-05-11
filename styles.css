@@ -364,6 +364,7 @@ img {
     align-items: center;
     gap: 2.5rem; /* Consistent space between text and symbol */
     padding-right: 2.5rem; /* Consistent space after symbol before next item */
+    color: #FAFAF9; /* Ensure visibility on black background */
 }
 
 .marquee-symbol {
